@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Carro {
@@ -22,9 +23,10 @@ public class Carro {
 	private String chassi;
 	private String cor;
 	
+	@OneToMany(mappedBy="carro")
+	private List<Aluguel> alugueis;
 	@ManyToMany
 	private List<Acessorio> acessorios;
-	
 	@ManyToOne
 	private ModeloCarro modelo;
 
@@ -82,6 +84,14 @@ public class Carro {
 
 	public void setModelo(ModeloCarro modelo) {
 		this.modelo = modelo;
+	}
+
+	public List<Aluguel> getAlugueis() {
+		return alugueis;
+	}
+
+	public void setAlugueis(List<Aluguel> alugueis) {
+		this.alugueis = alugueis;
 	}
 
 	@Override
