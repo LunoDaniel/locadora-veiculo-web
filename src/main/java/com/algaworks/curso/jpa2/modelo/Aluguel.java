@@ -16,9 +16,10 @@ public class Aluguel {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long codigo;
 	private BigDecimal valorTotal;
+	
 	@ManyToOne
 	private Carro carro;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private ApoliceSeguro apoliceSeguro;
 	
 	public Long getCodigo() {
