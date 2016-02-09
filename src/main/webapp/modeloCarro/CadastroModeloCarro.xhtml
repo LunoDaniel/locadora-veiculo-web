@@ -13,7 +13,7 @@
 			<o:viewParam name="modeloCarro" value="#{cadastroModeloCarroBean.modeloCarro}" />
 		</f:metadata>
     
-    	<h1>Novo modelo de carro</h1>
+    	<h1>Novo Modelo de Carro</h1>
     
     	<h:form id="frmCadastro">
 	    	<p:messages id="messages" autoUpdate="true" closable="true" />
@@ -23,7 +23,7 @@
 	    			<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroModeloCarroBean.salvar}" update="frmCadastro"/>
 	    		</p:toolbarGroup>
 	    		<p:toolbarGroup align="right">
-					<p:button value="Pesquisa" />
+					<p:button value="Pesquisa"/>
 				</p:toolbarGroup>
 	    	</p:toolbar>
 	    	
@@ -34,13 +34,19 @@
 	    		
 	    		<p:outputLabel value="Fabricante" for="fabricante"/>
 	    		<p:selectOneMenu id="fabricante" value="#{cadastroModeloCarroBean.modeloCarro.fabricante}">
-	    			<f:selectItem itemLabel="Selecione o fabricante" />
+	    			<f:selectItem itemLabel="Selecione o Fabricante" />
 	    			<f:selectItems value="#{cadastroModeloCarroBean.fabricantes}" var="fabricante" 
 						itemLabel="#{fabricante.nome}" itemValue="#{fabricante}"/>
 	    		</p:selectOneMenu>
 	    		
 	    		<p:outputLabel value="Modelo" for="modelo"/>
 	    		<p:inputText id="modelo" size="60" maxlength="80" value="#{cadastroModeloCarroBean.modeloCarro.descricao}"/>
+	    		
+	    		<p:outputLabel value="Categoria" for="categoria"/>
+	    		<p:selectOneMenu id="categoria" value="#{cadastroModeloCarroBean.modeloCarro.categoria}">
+	    			<f:selectItem itemLabel="Selecione a Categoria"/>
+	    			<f:selectItems value="#{cadastroModeloCarroBean.categorias}" var="categoria" itemLabel="#{categoria}" itemValue="#{categoria}"/>
+	    		</p:selectOneMenu>
 	    	</p:panelGrid>
     	</h:form>
     </ui:define>
