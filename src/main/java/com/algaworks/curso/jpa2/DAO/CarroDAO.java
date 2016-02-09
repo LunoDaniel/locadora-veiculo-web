@@ -1,4 +1,4 @@
-package com.algaworks.curso.jpa2.DAO;
+package com.algaworks.curso.jpa2.dao;
 
 import java.io.Serializable;
 import java.util.List;
@@ -41,4 +41,9 @@ public class CarroDAO implements Serializable{
 		return em.createQuery("from Carro").getResultList();
 	}
 
+	public Carro buscarCarroComAcessorios(Long codigo) {
+		return (Carro) em.createQuery("select c from Carro c JOIN c.acessorios a where c.codigo = ?")
+				.setParameter(1, codigo)
+				.getSingleResult();
+	}
 }
