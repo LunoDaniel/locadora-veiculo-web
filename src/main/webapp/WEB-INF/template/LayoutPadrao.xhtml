@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html xml:lang="html" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -18,14 +18,14 @@
 				<h:graphicImage library="imagens" name="carregando.gif"/>
 			</f:facet>
 			<f:facet name="complete">
-				<h:outputText value=""/>
+				<h:outputText value=""/> 
 			</f:facet>
 		</p:ajaxStatus>
-	
+	 
 		<header>
 			<div style="float: left">
 				<h:link outcome="/Home">
-					<h:graphicImage library="imagens" name="logo-algaworks.png" />
+					<h:graphicImage library="imagens" name="logo-algaworks.png" width="190" url="/Home.xhtml"/>
 				</h:link>
 			</div>
 			
@@ -33,10 +33,10 @@
 				<h:form style="display: inline-block">
 					<p:menubar styleClass="menu-sistema">
 						<p:submenu label="Cadastros">
-							<p:menuitem value="Fabricante"  />
-							<p:menuitem value="Modelo Carro"  />
-							<p:menuitem value="Acessório" />
-							<p:menuitem value="Carro" />
+							<p:menuitem value="Fabricante" action="/fabricante/PesquisaFabricantes.xhtml" />
+							<p:menuitem value="Modelo Carro" action="/modeloCarro/PesquisaModeloCarro.xhtml"  />
+							<p:menuitem value="Acessório" action="/acessorio/PesquisaAcessorio.xhtml" />
+							<p:menuitem value="Carro" action="/carro/PesquisaCarro.xhtml"/>
 							<p:separator/>
 							<p:menuitem value="Funcionário" />
 							<p:menuitem value="Motorista" />
@@ -58,8 +58,8 @@
 		<p:separator style="margin-top: 20px"/>
 	
 		<footer>
-			Curso Online de Persistência de Dados com JPA 2 e Hibernate -
-			<a href="http://bit.ly/VJTAnC" target="_blank">www.algaworks.com</a>
+			Aluguel de Carros
+			<a href="http://bit.ly/VJTAnC" target="_blank">algueldecarros.com.br</a>
 		</footer>
 	</h:body>
 

@@ -37,10 +37,10 @@
 		    		<p:button outcome="CadastroModeloCarro" icon="ui-icon-pencil" title="Editar">
 		    			<f:param name="modeloCarro" value="#{modeloCarro.codigo}"/>
 		    		</p:button>
-		    		<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmacaoExclusao.show()"
+		    		<h:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmacaoExclusao.show()"
 							process="@this" update=":frmPesquisa:confirmacaoExclusaoDialog">
 						<f:setPropertyActionListener target="#{pesquisaModeloCarroBean.modeloCarroSelecionado}" value="#{modeloCarro}" />
-					</p:commandButton>
+					</h:commandButton>
 		    	</p:column>
 		   	</p:dataTable>
 		   	<p:confirmDialog id="confirmacaoExclusaoDialog" widgetVar="confirmacaoExclusao"
