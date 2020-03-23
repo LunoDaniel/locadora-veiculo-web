@@ -5,7 +5,6 @@ import static com.algaworks.aluguelveiculos.util.messages.MessageUtils.getMessag
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -16,21 +15,24 @@ import com.algaworks.aluguelveiculos.service.CadastroFabricanteService;
 import com.algaworks.aluguelveiculos.service.NegocioException;
 import com.algaworks.aluguelveiculos.util.jsf.FacesUtil;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Named
 @ViewScoped
-public class CadastroFabricanteBean implements Serializable
-{
-
-	
+public class CadastroFabricanteBean extends BeanController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	
 	@Inject 
 	private CadastroFabricanteService cadastroFabricanteSerivice;
-	private Fabricante fabricante;
 	
-	@PostConstruct
-	public void init(){
+	@Getter @Setter
+	private Fabricante fabricante = new Fabricante();
+	
+	@Override
+	public void initializer(){
 		this.limpar();
 	}
 	
@@ -48,12 +50,5 @@ public class CadastroFabricanteBean implements Serializable
 		} catch (NegocioException e) {
 			FacesUtil.addErrorMessage(e.getMessage());
 		}
-	}
-	
-	public Fabricante getFabricante() {
-		return this.fabricante;
-	}
-	public void setFabricante(Fabricante fabricante) {
-		this.fabricante = fabricante;
 	}
 }

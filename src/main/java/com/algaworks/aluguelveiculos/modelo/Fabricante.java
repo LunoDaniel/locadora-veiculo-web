@@ -19,6 +19,6 @@ public class Fabricante implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long codigo;
 	
-	private String Nome;
+	private String nome;
 	
 }

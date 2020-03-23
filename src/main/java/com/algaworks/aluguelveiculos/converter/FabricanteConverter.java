@@ -11,15 +11,18 @@ import javax.inject.Inject;
 import com.algaworks.aluguelveiculos.dao.FabricanteDAO;
 import com.algaworks.aluguelveiculos.modelo.Fabricante;
 
-@FacesConverter(forClass=Fabricante.class)
+import lombok.Getter;
+
+@Getter
+@FacesConverter(forClass = Fabricante.class)
 public class FabricanteConverter implements Converter<Fabricante> {
 
 	@Inject
 	private FabricanteDAO fabricanteDAO;
-	
+
 	public Fabricante getAsObject(FacesContext context, UIComponent component, String value) {
 		Fabricante retorno = null;
-
+		
 		if (isNotBlank(value)) {
 			retorno = this.fabricanteDAO.buscarPeloCodigo(new Long(value));
 		}
@@ -32,17 +35,7 @@ public class FabricanteConverter implements Converter<Fabricante> {
 			Long codigo = value.getCodigo();
 			return (codigo == null ? null : codigo.toString());
 		}
-		
+
 		return "";
 	}
-
-	public FabricanteDAO getFabricanteDAO() {
-		return fabricanteDAO;
-	}
-
-	public void setFabricanteDAO(FabricanteDAO fabricanteDAO) {
-		this.fabricanteDAO = fabricanteDAO;
-	}
-
-	
 }

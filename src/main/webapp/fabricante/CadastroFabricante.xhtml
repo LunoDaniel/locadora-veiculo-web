@@ -6,14 +6,16 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:o="http://omnifaces.org/ui">
 
-    <ui:define name="titulo">Novo fabricante</ui:define>
+    <ui:define name="titulo" >#{cadastroFabricanteBean.getPageTitle('NOVO_FABRICANTE')}</ui:define>
     
     <ui:define name="corpo">
     	<f:metadata>
 			<o:viewParam name="fabricante" value="#{cadastroFabricanteBean.fabricante}" />
 		</f:metadata>
     
-    	<h1>Novo Fabricante</h1>
+    	<h1>
+    		<h:outputText value="#{cadastroFabricanteBean.getPageTitle('NOVO_FABRICANTE')}" />
+    	</h1>
     	
     	<h:form id="frmCadastro">
     		<p:messages id="messages" autoUpdate="true" closable="true" />

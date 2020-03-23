@@ -41,7 +41,7 @@ public class PesquisaFabricanteBean implements Serializable {
 			FacesUtil.addSuccessMessage(getMessage(FABRICANTE_EXCLUIDO_COM_SUCESSO, fabricanteSelecionado.getNome()));
 		} catch (Exception e) {
 			FacesUtil.addErrorMessage(e.getMessage());
-		}
+		} 
 	}
 
 	public Fabricante getFabricanteSelecionado() {

@@ -51,7 +51,7 @@ out/
 bin/
 tmp/
 .metadata
-.classpath
+*.classpath
 .project
 *.tmp
 *.bak
@@ -60,6 +60,7 @@ tmp/
 local.properties
 .loadpath
 .factorypath
+*.settings
 
 ##############################
 ## NetBeans

@@ -1,5 +1,8 @@
 package com.algaworks.aluguelveiculos.dao;
 
+import static com.algaworks.aluguelveiculos.constants.MessageConstants.ERRO_AO_EXCLUIR_O_FABRICANTE;
+import static com.algaworks.aluguelveiculos.util.messages.MessageUtils.getMessage;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,6 +10,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import com.algaworks.aluguelveiculos.modelo.Fabricante;
+import com.algaworks.aluguelveiculos.service.NegocioException;
 import com.algaworks.aluguelveiculos.util.jpa.Transactional;
 
 
@@ -22,11 +26,15 @@ public class FabricanteDAO implements Serializable
 	}
 	
 	@Transactional
-	public void excluir(Fabricante fabricante) {
+	public void excluir(Fabricante fabricante) throws NegocioException {
 		Fabricante fabricanteTemp = em.find(Fabricante.class, fabricante.getCodigo());
 		
-		em.remove(fabricanteTemp);
-		em.flush();
+		try {
+			em.remove(fabricanteTemp);
+			em.flush();
+		} catch (Exception e) {
+			throw new NegocioException(getMessage(ERRO_AO_EXCLUIR_O_FABRICANTE, fabricante.getNome()));
+		}
 	}
 	
 	@SuppressWarnings("unchecked")

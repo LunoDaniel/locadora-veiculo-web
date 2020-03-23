@@ -11,7 +11,7 @@
     	<h1>Pesquisa de Fabricantes</h1>
     	
     	<h:form id="frmPesquisa">
-    		<p:messages id="messages" autoUpdate="true" closable="true" />
+    		<p:growl id="message" showDetail="true" />
     		
     		<p:toolbar style="margin-top: 20px">
     			<p:toolbarGroup>
@@ -32,19 +32,19 @@
 		    			<p:button outcome="CadastroFabricante" icon="ui-icon-pencil" title="Editar">
 		    				<f:param name="fabricante" value="#{fabricante.codigo}"/>
 		    			</p:button>
-		    			<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmacaoExclusao.show()"
-								process="@this" update=":frmPesquisa:confirmacaoExclusaoDialog">
+		    			<p:commandButton icon="ui-icon-trash" title="Excluir" onclick="PF('confirmacaoExclusao').show();"
+								process="@this" update=":frmPesquisa:message">
 							<f:setPropertyActionListener target="#{pesquisaFabricanteBean.fabricanteSelecionado}" value="#{fabricante}" />
 						</p:commandButton>
 		    		</p:column>
 		    </p:dataTable>
 		    
-		    <p:confirmDialog id="confirmacaoExclusaoDialog" widgetVar="confirmacaoExclusao"
+		    <p:confirmDialog id="confirmacaoExclusaoDialog" widgetVar="confirmacaoExclusao"  global="true"
 	        		message="Tem certeza que deseja excluir o fabricante #{pesquisaFabricanteBean.fabricanteSelecionado.nome}?"  
-	                header="Exclusão de fabricante" severity="alert">
-	        	<p:button value="Não" onclick="confirmacaoExclusao.hide(); return false;" />
-	        	<p:commandButton value="Sim" update=":frmPesquisa:fabricantesTable"
-	        			onclick="confirmacaoExclusao.hide()" action="#{pesquisaFabricanteBean.excluir}" />
+	                header="Exclusão de fabricante" severity="alert" icon="exclamation-circle">
+	        	<p:button value="Não" onclick="PF('confirmacaoExclusao').hide(); return false;" />
+	        	<p:commandButton value="Sim" update="frmPesquisa"
+	        			onclick="PF('confirmacaoExclusao').hide()" action="#{pesquisaFabricanteBean.excluir}" />
 	    	</p:confirmDialog>
 	    </h:form>
     </ui:define>
