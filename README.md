@@ -1,7 +1,6 @@
 ## Sistema de Aluguel de Carros
 
-Este é um sitema simples desenvolvido como estudo para aprimorar conhecimentos em JSF, Hibernate e Java2EE e como uma arquitetura de camadas para um monolito pode ser otimizada utilizando
-as features do Java 8 e das atualizações das bibliotecas inclusas.
+Este é um sitema simples desenvolvido como estudo para aprimorar conhecimentos em JSF, Hibernate e Java2EE e como uma arquitetura de camadas para como um monolito pode ser otimizada utilizando as features do Java 8 e das atualizações das bibliotecas inclusas. Melhorando principalmente a qualidade de código.
 
 #### Tecnologias Utilizadas:
 
