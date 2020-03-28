@@ -105,3 +105,7 @@ h1 {
 .many-checkbox td label {
 	padding-right: 10px;
 }
+
+.ui-datatable-empty-message {
+	text-align: center !important;
+}

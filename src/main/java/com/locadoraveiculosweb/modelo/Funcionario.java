@@ -1,4 +1,4 @@
-package com.algaworks.aluguelveiculos.modelo;
+package com.locadoraveiculosweb.modelo;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

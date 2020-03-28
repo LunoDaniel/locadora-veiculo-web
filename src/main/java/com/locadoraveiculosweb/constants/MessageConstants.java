@@ -1,4 +1,4 @@
-package com.algaworks.aluguelveiculos.constants;
+package com.locadoraveiculosweb.constants;
 
 public class MessageConstants {
 	

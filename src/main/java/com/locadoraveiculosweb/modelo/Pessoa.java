@@ -1,4 +1,4 @@
-package com.algaworks.aluguelveiculos.modelo;
+package com.locadoraveiculosweb.modelo;
 
 import java.io.Serializable;
 import java.util.Date;

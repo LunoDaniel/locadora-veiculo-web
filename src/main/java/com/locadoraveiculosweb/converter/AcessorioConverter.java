@@ -1,4 +1,6 @@
-package com.algaworks.aluguelveiculos.converter;
+package com.locadoraveiculosweb.converter;
+
+import java.util.Optional;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -6,8 +8,11 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
-import com.algaworks.aluguelveiculos.dao.AcessorioDAO;
-import com.algaworks.aluguelveiculos.modelo.Acessorio;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import com.locadoraveiculosweb.dao.AcessorioDAO;
+import com.locadoraveiculosweb.modelo.Acessorio;
 
 @FacesConverter("acessorioConverter")
 public class AcessorioConverter implements Converter<Acessorio> {
@@ -18,20 +23,22 @@ public class AcessorioConverter implements Converter<Acessorio> {
 	public Acessorio getAsObject(FacesContext context, UIComponent component, String value) {
 		Acessorio retorno = null;
 		
-		if (value != null) {
-			retorno = this.acessorioDAO.buscarPeloCodigo(new Long(value));
+		if (ObjectUtils.isNotEmpty(value)) {
+			retorno = this.acessorioDAO.buscarPeloCodigo(Long.valueOf(value));
 		}
 
 		return retorno;
 	}
 
 	public String getAsString(FacesContext context, UIComponent component, Acessorio value) {
-		if (value != null) {
-			Long codigo = value.getCodigo();
-			return  (codigo == null ? null : codigo.toString());
+		
+		if (ObjectUtils.isNotEmpty(value)) {
+			
+			return Optional.of(Optional.ofNullable(value.getCodigo()).toString()).orElse(null);
 		}
 		
-		return "";
+		return StringUtils.EMPTY;
 	}
+	
 
 }

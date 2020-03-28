@@ -1,4 +1,4 @@
-package com.algaworks.aluguelveiculos.modelo.dtos;
+package com.locadoraveiculosweb.modelo.dtos;
 
 import java.io.Serializable;
 
@@ -16,6 +16,6 @@ public class FabricanteDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long codigo;
-	private String Nome;
+	private String nome;
 	
 }

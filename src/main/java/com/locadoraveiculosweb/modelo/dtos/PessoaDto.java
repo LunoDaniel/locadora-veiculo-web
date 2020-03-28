@@ -1,4 +1,4 @@
-package com.algaworks.aluguelveiculos.modelo.dtos;
+package com.locadoraveiculosweb.modelo.dtos;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,12 +1,12 @@
-package com.algaworks.aluguelveiculos.service;
+package com.locadoraveiculosweb.service;
 
 import java.io.Serializable;
 
 import javax.inject.Inject;
 
-import com.algaworks.aluguelveiculos.dao.CarroDAO;
-import com.algaworks.aluguelveiculos.modelo.Carro;
-import com.algaworks.aluguelveiculos.util.jpa.Transactional;
+import com.locadoraveiculosweb.dao.CarroDAO;
+import com.locadoraveiculosweb.modelo.Carro;
+import com.locadoraveiculosweb.util.jpa.Transactional;
 
 public class CadastroCarroService implements Serializable{
 	private static final long serialVersionUID = 1L;

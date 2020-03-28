@@ -1,4 +1,4 @@
-package com.algaworks.aluguelveiculos.modelo;
+package com.locadoraveiculosweb.modelo;
 
 public enum Categoria {
 	HATCH_COMPACTO,

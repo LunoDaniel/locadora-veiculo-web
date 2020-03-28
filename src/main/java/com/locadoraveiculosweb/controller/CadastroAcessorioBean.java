@@ -1,4 +1,4 @@
-package com.algaworks.aluguelveiculos.controller;
+package com.locadoraveiculosweb.controller;
 
 import java.io.Serializable;
 
@@ -8,14 +8,14 @@ import javax.inject.Named;
 
 import org.omnifaces.cdi.ViewScoped;
 
-import com.algaworks.aluguelveiculos.modelo.Acessorio;
-import com.algaworks.aluguelveiculos.service.CadastroAcessorioService;
-import com.algaworks.aluguelveiculos.service.NegocioException;
-import com.algaworks.aluguelveiculos.util.jsf.FacesUtil;
+import com.locadoraveiculosweb.modelo.Acessorio;
+import com.locadoraveiculosweb.service.CadastroAcessorioService;
+import com.locadoraveiculosweb.service.NegocioException;
+import com.locadoraveiculosweb.util.jsf.FacesUtil;
 
 @Named
 @ViewScoped
-public class CadastroAcessorioBean implements Serializable{
+public class CadastroAcessorioBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Inject

@@ -1,4 +1,4 @@
-package com.algaworks.aluguelveiculos.service;
+package com.locadoraveiculosweb.service;
 
 public class NegocioException extends Exception{
 	private static final long serialVersionUID = 1L;

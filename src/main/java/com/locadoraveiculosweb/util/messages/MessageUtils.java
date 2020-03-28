@@ -1,4 +1,4 @@
-package com.algaworks.aluguelveiculos.util.messages;
+package com.locadoraveiculosweb.util.messages;
 
 import static java.text.MessageFormat.format;
 

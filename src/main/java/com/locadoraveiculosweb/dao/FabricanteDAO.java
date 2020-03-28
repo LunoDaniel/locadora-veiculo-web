@@ -1,7 +1,7 @@
-package com.algaworks.aluguelveiculos.dao;
+package com.locadoraveiculosweb.dao;
 
-import static com.algaworks.aluguelveiculos.constants.MessageConstants.ERRO_AO_EXCLUIR_O_FABRICANTE;
-import static com.algaworks.aluguelveiculos.util.messages.MessageUtils.getMessage;
+import static com.locadoraveiculosweb.constants.MessageConstants.ERRO_AO_EXCLUIR_O_FABRICANTE;
+import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,9 +9,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import com.algaworks.aluguelveiculos.modelo.Fabricante;
-import com.algaworks.aluguelveiculos.service.NegocioException;
-import com.algaworks.aluguelveiculos.util.jpa.Transactional;
+import com.locadoraveiculosweb.modelo.Fabricante;
+import com.locadoraveiculosweb.service.NegocioException;
+import com.locadoraveiculosweb.util.jpa.Transactional;
 
 
 public class FabricanteDAO implements Serializable

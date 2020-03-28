@@ -1,4 +1,4 @@
-package com.algaworks.aluguelveiculos.util.jpa;
+package com.locadoraveiculosweb.util.jpa;
 
 import java.io.Serializable;
 

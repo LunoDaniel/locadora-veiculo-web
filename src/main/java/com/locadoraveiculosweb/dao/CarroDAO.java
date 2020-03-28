@@ -1,4 +1,4 @@
-package com.algaworks.aluguelveiculos.dao;
+package com.locadoraveiculosweb.dao;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,9 +7,9 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 
-import com.algaworks.aluguelveiculos.modelo.Carro;
-import com.algaworks.aluguelveiculos.service.NegocioException;
-import com.algaworks.aluguelveiculos.util.jpa.Transactional;
+import com.locadoraveiculosweb.modelo.Carro;
+import com.locadoraveiculosweb.service.NegocioException;
+import com.locadoraveiculosweb.util.jpa.Transactional;
 
 public class CarroDAO implements Serializable{
 	private static final long serialVersionUID = 1L;

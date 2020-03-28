@@ -1,4 +1,4 @@
-package com.algaworks.aluguelveiculos.modelo.dtos;
+package com.locadoraveiculosweb.modelo.dtos;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

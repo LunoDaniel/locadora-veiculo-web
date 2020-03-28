@@ -1,4 +1,4 @@
-package com.algaworks.aluguelveiculos.controller;
+package com.locadoraveiculosweb.controller;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,13 +9,13 @@ import javax.inject.Named;
 
 import org.omnifaces.cdi.ViewScoped;
 
-import com.algaworks.aluguelveiculos.dao.CarroDAO;
-import com.algaworks.aluguelveiculos.modelo.Aluguel;
-import com.algaworks.aluguelveiculos.modelo.ApoliceSeguro;
-import com.algaworks.aluguelveiculos.modelo.Carro;
-import com.algaworks.aluguelveiculos.service.CadastroAluguelService;
-import com.algaworks.aluguelveiculos.service.NegocioException;
-import com.algaworks.aluguelveiculos.util.jsf.FacesUtil;
+import com.locadoraveiculosweb.dao.CarroDAO;
+import com.locadoraveiculosweb.modelo.Aluguel;
+import com.locadoraveiculosweb.modelo.ApoliceSeguro;
+import com.locadoraveiculosweb.modelo.Carro;
+import com.locadoraveiculosweb.service.CadastroAluguelService;
+import com.locadoraveiculosweb.service.NegocioException;
+import com.locadoraveiculosweb.util.jsf.FacesUtil;
 
 @Named
 @ViewScoped

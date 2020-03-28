@@ -1,9 +1,8 @@
-package com.algaworks.aluguelveiculos.controller;
+package com.locadoraveiculosweb.controller;
 
-import static com.algaworks.aluguelveiculos.constants.MessageConstants.FABRICANTE_EXCLUIDO_COM_SUCESSO;
-import static com.algaworks.aluguelveiculos.util.messages.MessageUtils.getMessage;
+import static com.locadoraveiculosweb.constants.MessageConstants.FABRICANTE_EXCLUIDO_COM_SUCESSO;
+import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,46 +12,53 @@ import javax.inject.Named;
 
 import org.omnifaces.cdi.ViewScoped;
 
-import com.algaworks.aluguelveiculos.dao.FabricanteDAO;
-import com.algaworks.aluguelveiculos.modelo.Fabricante;
-import com.algaworks.aluguelveiculos.util.jsf.FacesUtil;
+import com.locadoraveiculosweb.modelo.dtos.FabricanteDto;
+import com.locadoraveiculosweb.service.FabricanteService;
+import com.locadoraveiculosweb.service.Service;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Named
 @ViewScoped
-public class PesquisaFabricanteBean implements Serializable {
+public class PesquisaFabricanteBean  extends BeanController<FabricanteDto> {
+
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	FabricanteDAO fabricanteDAO;
+	FabricanteService fabricanteService;
 	
-	private List<Fabricante> fabricantes = new ArrayList<>();
+	@Getter @Setter
+	private List<FabricanteDto> fabricantes = new ArrayList<>();
 	
-	private Fabricante fabricanteSelecionado;
+	@Getter @Setter
+	private FabricanteDto fabricanteSelecionado;
 	
-	public List<Fabricante> getFabricantes() {
-		return fabricantes;
-	}
-	
-	public void excluir() {
-		try {
-			fabricanteDAO.excluir(fabricanteSelecionado);
-			this.fabricantes.remove(fabricanteSelecionado);
-			FacesUtil.addSuccessMessage(getMessage(FABRICANTE_EXCLUIDO_COM_SUCESSO, fabricanteSelecionado.getNome()));
-		} catch (Exception e) {
-			FacesUtil.addErrorMessage(e.getMessage());
-		} 
+
+	@Override
+	@PostConstruct
+	public void initializer() {
+		fabricantes = buscarTodos();
 	}
 
-	public Fabricante getFabricanteSelecionado() {
+	@Override
+	protected Service<FabricanteDto> getService() {
+		return fabricanteService;
+	}
+
+	@Override
+	protected void clean() {
+		fabricantes.remove(fabricanteSelecionado);
+	}
+
+	@Override
+	protected FabricanteDto getViewObject() {
 		return fabricanteSelecionado;
 	}
-	public void setFabricanteSelecionado(Fabricante fabricanteSelecionado) {
-		this.fabricanteSelecionado = fabricanteSelecionado;
-	}
-	
-	@PostConstruct
-	public void inicializar() {
-		fabricantes = fabricanteDAO.buscarTodos();
+
+	@Override
+	protected String getSuccessMessage(FabricanteDto object) {
+		return getMessage(FABRICANTE_EXCLUIDO_COM_SUCESSO, object.getNome());
 	}
 }

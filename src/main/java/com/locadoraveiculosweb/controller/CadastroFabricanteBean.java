@@ -1,54 +1,57 @@
-package com.algaworks.aluguelveiculos.controller;
+package com.locadoraveiculosweb.controller;
 
-import static com.algaworks.aluguelveiculos.constants.MessageConstants.FABRICANTE_SALVO_COM_SUCESSO;
-import static com.algaworks.aluguelveiculos.util.messages.MessageUtils.getMessage;
+import static com.locadoraveiculosweb.constants.MessageConstants.FABRICANTE_SALVO_COM_SUCESSO;
+import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
 
-import java.io.Serializable;
-
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.omnifaces.cdi.ViewScoped;
 
-import com.algaworks.aluguelveiculos.modelo.Fabricante;
-import com.algaworks.aluguelveiculos.service.CadastroFabricanteService;
-import com.algaworks.aluguelveiculos.service.NegocioException;
-import com.algaworks.aluguelveiculos.util.jsf.FacesUtil;
+import com.locadoraveiculosweb.modelo.dtos.FabricanteDto;
+import com.locadoraveiculosweb.service.FabricanteService;
+import com.locadoraveiculosweb.service.Service;
 
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Named
 @ViewScoped
-public class CadastroFabricanteBean extends BeanController implements Serializable {
+public class CadastroFabricanteBean extends BeanController<FabricanteDto> {
 
 	private static final long serialVersionUID = 1L;
 	
-	
 	@Inject 
-	private CadastroFabricanteService cadastroFabricanteSerivice;
+	private FabricanteService cadastroFabricanteSerivice;
 	
 	@Getter @Setter
-	private Fabricante fabricante = new Fabricante();
+	private FabricanteDto fabricante = new FabricanteDto();
 	
 	@Override
+	@PostConstruct
 	public void initializer(){
-		this.limpar();
+		clean();
 	}
-	
-	public void limpar(){
-		this.setFabricante(new Fabricante());
+
+	@Override
+	protected Service<FabricanteDto> getService() {
+		return cadastroFabricanteSerivice;
 	}
-	
-	public void salvar(){
-		try 
-		{
-			Fabricante fabricanteSalvo = cadastroFabricanteSerivice.salvar( fabricante );
-			FacesUtil.addSuccessMessage(getMessage(FABRICANTE_SALVO_COM_SUCESSO, fabricanteSalvo.getNome()));
-			this.limpar();
-			
-		} catch (NegocioException e) {
-			FacesUtil.addErrorMessage(e.getMessage());
-		}
+
+	@Override
+	protected FabricanteDto getViewObject() {
+		return fabricante;
+	}
+
+	@Override
+	protected void clean() {
+		fabricante = new FabricanteDto();
+	}
+
+	@Override
+	protected String getSuccessMessage(FabricanteDto fabricante) {
+		return getMessage(FABRICANTE_SALVO_COM_SUCESSO, fabricante.getNome());
 	}
 }

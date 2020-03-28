@@ -1,4 +1,4 @@
-package com.algaworks.aluguelveiculos.util.jpa;
+package com.locadoraveiculosweb.util.jpa;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;

@@ -5,10 +5,12 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Pesquisa de Fabricantes</ui:define>
+    <ui:define name="titulo">#{pesquisaFabricanteBean.getPageTitle('PESQUISA_FABRICANTE')}</ui:define>
     
     <ui:define name="corpo">
-    	<h1>Pesquisa de Fabricantes</h1>
+    	<h1>
+    		<h:outputText value="#{pesquisaFabricanteBean.getPageTitle('PESQUISA_FABRICANTE')}" />
+    	</h1>
     	
     	<h:form id="frmPesquisa">
     		<p:growl id="message" showDetail="true" />

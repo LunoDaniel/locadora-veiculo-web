@@ -1,4 +1,4 @@
-package com.algaworks.aluguelveiculos.controller;
+package com.locadoraveiculosweb.controller;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,10 +7,10 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.algaworks.aluguelveiculos.dao.AcessorioDAO;
-import com.algaworks.aluguelveiculos.modelo.Acessorio;
-import com.algaworks.aluguelveiculos.service.NegocioException;
-import com.algaworks.aluguelveiculos.util.jsf.FacesUtil;
+import com.locadoraveiculosweb.dao.AcessorioDAO;
+import com.locadoraveiculosweb.modelo.Acessorio;
+import com.locadoraveiculosweb.service.NegocioException;
+import com.locadoraveiculosweb.util.jsf.FacesUtil;
 
 @Named
 public class PesquisaAcessorioBean implements Serializable{

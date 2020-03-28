@@ -1,4 +1,4 @@
-package com.algaworks.aluguelveiculos.converter;
+package com.locadoraveiculosweb.converter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -6,8 +6,8 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
-import com.algaworks.aluguelveiculos.dao.ModeloCarroDAO;
-import com.algaworks.aluguelveiculos.modelo.ModeloCarro;
+import com.locadoraveiculosweb.dao.ModeloCarroDAO;
+import com.locadoraveiculosweb.modelo.ModeloCarro;
 
 @FacesConverter(forClass=ModeloCarro.class)
 public class ModeloCarroConverter implements Converter<ModeloCarro> {

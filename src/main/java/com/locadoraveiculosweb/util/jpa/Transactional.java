@@ -1,4 +1,4 @@
-package com.algaworks.aluguelveiculos.util.jpa;
+package com.locadoraveiculosweb.util.jpa;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

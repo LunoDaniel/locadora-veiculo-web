@@ -1,4 +1,4 @@
-package com.algaworks.aluguelveiculos.modelo.dtos;
+package com.locadoraveiculosweb.modelo.dtos;
 
 public enum CategoriaDto {
 	HATCH_COMPACTO,
