@@ -144,14 +144,4 @@
 
 
 	</dependencies>
-
-	<!-- Repositorio PrimeFaces -->
-	<repositories>
-		<!-- <repository> <id>prime-repo</id> <name>PrimeFaces Maven Repository</name> 
-			<url>http://repository.primefaces.org</url> <layout>default</layout> </repository> 
-			<repository> <id>public-jboss</id> <name>public-jboss</name> <url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url> 
-			</repository> -->
-
-	</repositories>
-
 </project>
