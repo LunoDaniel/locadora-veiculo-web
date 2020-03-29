@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
@@ -18,7 +17,7 @@ import lombok.Getter;
 
 @Getter
 @FacesConverter(forClass = FabricanteDto.class)
-public class FabricanteConverter implements Converter<FabricanteDto> {
+public class FabricanteConverter extends BeanConverter<FabricanteDto> {
 
 	@Inject
 	private FabricanteService service;
@@ -28,11 +27,11 @@ public class FabricanteConverter implements Converter<FabricanteDto> {
 	}
 
 	public String getAsString(FacesContext context, UIComponent component, FabricanteDto value) {
-		
-		if (isNotEmpty(value)) {
-			return Optional.of(Optional.ofNullable(value.getCodigo()).toString()).orElse(null);
-		}
+		return (isNotEmpty(value)) ? getValue(value) : EMPTY;
+	}
 
-		return EMPTY;
+	@Override
+	protected String getValue(FabricanteDto value) {
+		return Optional.of(Optional.ofNullable(value.getCodigo()).toString()).orElse(null);
 	}
 }

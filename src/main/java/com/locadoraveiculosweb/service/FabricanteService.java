@@ -1,5 +1,7 @@
 package com.locadoraveiculosweb.service;
 
+import static com.locadoraveiculosweb.constants.MessageConstants.BusinessMessages.NOME_OBRIGATORIO;
+import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
 import static java.util.Optional.ofNullable;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -15,7 +17,7 @@ import com.locadoraveiculosweb.util.jpa.Transactional;
 
 public class FabricanteService implements Service<FabricanteDto> {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Inject
 	private FabricanteDAO fabricanteDAO;
 
@@ -26,7 +28,7 @@ public class FabricanteService implements Service<FabricanteDto> {
 	public FabricanteDto salvar(FabricanteDto fabricanteDto) throws NegocioException {
 		
 		if(isBlank(fabricanteDto.getNome())) {
-			throw new NegocioException("O nome do Fabricante é Obrigatório");
+			throw new NegocioException(getMessage(NOME_OBRIGATORIO.getDescription(), Fabricante.class.getSimpleName()));
 		}
 		
 		Fabricante fabricante = mapper.toFabricante(ofNullable(fabricanteDto).orElse(new FabricanteDto()));

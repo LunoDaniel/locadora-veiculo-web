@@ -18,8 +18,8 @@ public class AcessorioDAO implements Serializable {
 	EntityManager em;
 	
 	@Transactional
-	public void salvar(Acessorio acessorio){
-		em.merge(acessorio);
+	public Acessorio salvar(Acessorio acessorio){
+		return em.merge(acessorio);
 	}
 	
 	@SuppressWarnings("unchecked")

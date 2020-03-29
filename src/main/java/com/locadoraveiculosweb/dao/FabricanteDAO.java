@@ -1,6 +1,6 @@
 package com.locadoraveiculosweb.dao;
 
-import static com.locadoraveiculosweb.constants.MessageConstants.ERRO_AO_EXCLUIR_O_FABRICANTE;
+import static com.locadoraveiculosweb.constants.MessageConstants.ViewMessages.ERRO_AO_EXCLUIR_O_FABRICANTE;
 import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
 
 import java.io.Serializable;
@@ -33,7 +33,7 @@ public class FabricanteDAO implements Serializable
 			em.remove(fabricanteTemp);
 			em.flush();
 		} catch (Exception e) {
-			throw new NegocioException(getMessage(ERRO_AO_EXCLUIR_O_FABRICANTE, fabricante.getNome()));
+			throw new NegocioException(getMessage(ERRO_AO_EXCLUIR_O_FABRICANTE.getDescription(), fabricante.getNome()));
 		}
 	}
 	

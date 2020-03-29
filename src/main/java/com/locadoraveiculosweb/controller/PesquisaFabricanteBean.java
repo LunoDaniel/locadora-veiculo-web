@@ -1,6 +1,6 @@
 package com.locadoraveiculosweb.controller;
 
-import static com.locadoraveiculosweb.constants.MessageConstants.FABRICANTE_EXCLUIDO_COM_SUCESSO;
+import static com.locadoraveiculosweb.constants.MessageConstants.ViewMessages.FABRICANTE_EXCLUIDO_COM_SUCESSO;
 import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
 
 import java.util.ArrayList;
@@ -59,6 +59,6 @@ public class PesquisaFabricanteBean  extends BeanController<FabricanteDto> {
 
 	@Override
 	protected String getSuccessMessage(FabricanteDto object) {
-		return getMessage(FABRICANTE_EXCLUIDO_COM_SUCESSO, object.getNome());
+		return getMessage(FABRICANTE_EXCLUIDO_COM_SUCESSO.getDescription(), object.getNome());
 	}
 }

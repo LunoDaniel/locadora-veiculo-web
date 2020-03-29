@@ -1,44 +1,39 @@
 package com.locadoraveiculosweb.converter;
 
+import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
+
 import java.util.Optional;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.locadoraveiculosweb.dao.AcessorioDAO;
-import com.locadoraveiculosweb.modelo.Acessorio;
+import com.locadoraveiculosweb.modelo.dtos.AcessorioDto;
+import com.locadoraveiculosweb.service.AcessorioService;
 
-@FacesConverter("acessorioConverter")
-public class AcessorioConverter implements Converter<Acessorio> {
+import lombok.Getter;
+
+@Getter
+@FacesConverter(forClass = AcessorioDto.class)
+public class AcessorioConverter extends BeanConverter<AcessorioDto>  {
 
 	@Inject
-	private AcessorioDAO acessorioDAO;
+	private AcessorioService acessorioService;
 	
-	public Acessorio getAsObject(FacesContext context, UIComponent component, String value) {
-		Acessorio retorno = null;
-		
-		if (ObjectUtils.isNotEmpty(value)) {
-			retorno = this.acessorioDAO.buscarPeloCodigo(Long.valueOf(value));
-		}
-
-		return retorno;
+	public AcessorioDto getAsObject(FacesContext context, UIComponent component, String value) {
+		return this.acessorioService.buscarPeloCodigo(value);
 	}
 
-	public String getAsString(FacesContext context, UIComponent component, Acessorio value) {
-		
-		if (ObjectUtils.isNotEmpty(value)) {
-			
-			return Optional.of(Optional.ofNullable(value.getCodigo()).toString()).orElse(null);
-		}
-		
-		return StringUtils.EMPTY;
+	public String getAsString(FacesContext context, UIComponent component, AcessorioDto value) {
+		return (isNotEmpty(value)) ? getValue(value) : StringUtils.EMPTY;
 	}
 	
+	@Override
+	protected String getValue(AcessorioDto value) {
+		return Optional.of(Optional.ofNullable(value.getCodigo()).toString()).orElse(null);
+	}
 
 }

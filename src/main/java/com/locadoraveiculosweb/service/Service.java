@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public interface Service<T> extends Serializable {
-
+	
 	T salvar(T object) throws NegocioException;
 	
 	T buscarPeloCodigo(String id);

@@ -1,57 +1,59 @@
 package com.locadoraveiculosweb.controller;
 
-import java.io.Serializable;
+import static com.locadoraveiculosweb.constants.MessageConstants.ViewMessages.ACESSORIO_EXCLUIDO_COM_SUCESSO;
+
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.locadoraveiculosweb.dao.AcessorioDAO;
-import com.locadoraveiculosweb.modelo.Acessorio;
-import com.locadoraveiculosweb.service.NegocioException;
-import com.locadoraveiculosweb.util.jsf.FacesUtil;
+import com.locadoraveiculosweb.modelo.dtos.AcessorioDto;
+import com.locadoraveiculosweb.service.AcessorioService;
+import com.locadoraveiculosweb.service.Service;
+import com.locadoraveiculosweb.util.messages.MessageUtils;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Named
-public class PesquisaAcessorioBean implements Serializable{
+public class PesquisaAcessorioBean extends BeanController<AcessorioDto> {
+	
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private AcessorioDAO acessorioDao;
+	private AcessorioService acessorioService;
 	
-	private Acessorio acessorioSelecionado;
-	private List<Acessorio> acessorios;
+	@Getter @Setter
+	private AcessorioDto acessorioSelecionado;
 	
-	public void excluir(){
-		try {
-			this.acessorioDao.excluir(acessorioSelecionado);
-			this.acessorios.remove(acessorioSelecionado);
-			FacesUtil.addSuccessMessage("Acessório Removido com Sucesso!");
-		} catch (NegocioException e) {
-			FacesUtil.addErrorMessage(e.getMessage());
-		}
-	}
+	@Getter @Setter
+	private List<AcessorioDto> acessorios;
 	
+	@Override
 	@PostConstruct
-	public void inicializar(){
-		this.acessorios = acessorioDao.buscarTodos();
+	public void initializer(){
+		this.acessorios = acessorioService.buscarTodos();
 	}
 
-	public Acessorio getAcessorioSelecionado() {
+	@Override
+	protected void clean() {
+		acessorios.remove(acessorioSelecionado);		
+	}
+
+	@Override
+	protected Service<AcessorioDto> getService() {
+		return acessorioService;
+	}
+
+	@Override
+	protected AcessorioDto getViewObject() {
 		return acessorioSelecionado;
 	}
 
-	public void setAcessorioSelecionado(Acessorio acessorioSelecionado) {
-		this.acessorioSelecionado = acessorioSelecionado;
+	@Override
+	protected String getSuccessMessage(AcessorioDto object) {
+		return MessageUtils.getMessage(ACESSORIO_EXCLUIDO_COM_SUCESSO.getDescription(), object);
 	}
-
-	public List<Acessorio> getAcessorios() {
-		return acessorios;
-	}
-
-	public void setAcessorios(List<Acessorio> acessorios) {
-		this.acessorios = acessorios;
-	}
-	
 	
 }

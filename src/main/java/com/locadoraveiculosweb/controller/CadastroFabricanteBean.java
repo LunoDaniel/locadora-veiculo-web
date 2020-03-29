@@ -1,6 +1,6 @@
 package com.locadoraveiculosweb.controller;
 
-import static com.locadoraveiculosweb.constants.MessageConstants.FABRICANTE_SALVO_COM_SUCESSO;
+import static com.locadoraveiculosweb.constants.MessageConstants.ViewMessages.FABRICANTE_SALVO_COM_SUCESSO;
 import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
 
 import javax.annotation.PostConstruct;
@@ -52,6 +52,6 @@ public class CadastroFabricanteBean extends BeanController<FabricanteDto> {
 
 	@Override
 	protected String getSuccessMessage(FabricanteDto fabricante) {
-		return getMessage(FABRICANTE_SALVO_COM_SUCESSO, fabricante.getNome());
+		return getMessage(FABRICANTE_SALVO_COM_SUCESSO.getDescription(), fabricante.getNome());
 	}
 }

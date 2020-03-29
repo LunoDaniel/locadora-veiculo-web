@@ -1,6 +1,6 @@
 package com.locadoraveiculosweb.controller;
 
-import java.io.Serializable;
+import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -8,45 +8,49 @@ import javax.inject.Named;
 
 import org.omnifaces.cdi.ViewScoped;
 
-import com.locadoraveiculosweb.modelo.Acessorio;
-import com.locadoraveiculosweb.service.CadastroAcessorioService;
-import com.locadoraveiculosweb.service.NegocioException;
-import com.locadoraveiculosweb.util.jsf.FacesUtil;
+import com.locadoraveiculosweb.constants.MessageConstants;
+import com.locadoraveiculosweb.modelo.dtos.AcessorioDto;
+import com.locadoraveiculosweb.service.AcessorioService;
+import com.locadoraveiculosweb.service.Service;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Named
 @ViewScoped
-public class CadastroAcessorioBean implements Serializable {
+public class CadastroAcessorioBean extends BeanController<AcessorioDto> {
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private CadastroAcessorioService cadastroAcessorioService;
-	private Acessorio acessorio;
+	private AcessorioService cadastroAcessorioService;
 	
+	@Getter @Setter
+	private AcessorioDto acessorio;
+
+	@Override
 	@PostConstruct
-	public void inicializar(){
-		this.limpar();
-	}
-	
-	public void limpar(){
-		this.acessorio = new Acessorio();
-	}
-	
-	public void salvar(){
-		try {
-			cadastroAcessorioService.salvar(acessorio);
-			FacesUtil.addSuccessMessage("Acessório Salvo com Sucesso!");
-		} catch (NegocioException e) {
-			FacesUtil.addErrorMessage(e.getMessage());
-		}
-		this.limpar();
+	public void initializer() {
+		clean();
 	}
 
-	public Acessorio getAcessorio() {
+	@Override
+	protected void clean() {
+		this.acessorio = new AcessorioDto();
+	}
+
+	@Override
+	protected Service<AcessorioDto> getService() {
+		return cadastroAcessorioService;
+	}
+
+	@Override
+	protected AcessorioDto getViewObject() {
 		return acessorio;
 	}
 
-	public void setAcessorio(Acessorio acessorio) {
-		this.acessorio = acessorio;
+	@Override
+	protected String getSuccessMessage(AcessorioDto object) {
+		return getMessage(MessageConstants.ViewMessages.ACESSORIO_SALVO_COM_SUCESSO.getDescription(), object.getDescricao());
 	}
 	
 }
