@@ -2,6 +2,8 @@ package com.locadoraveiculosweb.modelo.dtos;
 
 import java.io.Serializable;
 
+import com.locadoraveiculosweb.modelo.Categoria;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +20,6 @@ public class ModeloCarroDto implements Serializable {
 	private Long codigo;
 	private String descricao;
 	private FabricanteDto fabricante;
-	private CategoriaDto categoria;
+	private Categoria categoria;
 	
 }

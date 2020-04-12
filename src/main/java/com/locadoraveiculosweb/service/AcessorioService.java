@@ -1,6 +1,6 @@
 package com.locadoraveiculosweb.service;
 
-import static com.locadoraveiculosweb.constants.MessageConstants.BusinessMessages.DESCRICA_OBRIGATORIA;
+import static com.locadoraveiculosweb.constants.MessageConstants.BusinessMessages.DESCRICAO_OBRIGATORIA;
 import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -29,7 +29,7 @@ public class AcessorioService implements Service<AcessorioDto> {
 	public AcessorioDto salvar(AcessorioDto acessorioDto) throws NegocioException {
 
 		if (isBlank(acessorioDto.getDescricao())) {
-			throw new NegocioException(getMessage(DESCRICA_OBRIGATORIA.getDescription(), Acessorio.class.getSimpleName()));
+			throw new NegocioException(getMessage(DESCRICAO_OBRIGATORIA.getDescription(), Acessorio.class.getSimpleName()));
 		}
 
 		Acessorio acessorio = mapper.toAcessorio(acessorioDto);

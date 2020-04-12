@@ -9,7 +9,7 @@
 	<h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title><ui:insert name="titulo">Sistema de Locadora de Veículo</ui:insert></title>
-        <h:outputStylesheet library="css" name="sistema.css" />
+        <!-- <h:outputStylesheet library="css" name="sistema.css" /> -->
         <h:outputScript library="js" name="sistema.js"></h:outputScript>
 	</h:head>
 
@@ -32,12 +32,12 @@
 			
 			<div style="float: right; margin-right: 110px">
 				<h:form style="display: inline-block">
-					<p:menubar styleClass="menu-sistema">
-						<p:submenu label="Cadastros">
-							<p:menuitem value="Fabricante" action="/fabricante/PesquisaFabricantes.xhtml" />
-							<p:menuitem value="Modelo Carro" action="/modeloCarro/PesquisaModeloCarro.xhtml"  />
-							<p:menuitem value="Acessório" action="/acessorio/PesquisaAcessorio.xhtml" />
-							<p:menuitem value="Carro" action="/carro/PesquisaCarro.xhtml"/>
+					<p:menubar styleClass="menu-sistema" >
+						<p:submenu label="Cadastros" icon="">
+							<p:menuitem value="Fabricante" action="/fabricante/PesquisaFabricantes.xhtml?faces-redirect=true" />
+							<p:menuitem value="Modelo Carro" action="/modeloCarro/PesquisaModeloCarro.xhtml?faces-redirect=true"  />
+							<p:menuitem value="Acessório" action="/acessorio/PesquisaAcessorio.xhtml?faces-redirect=true" />
+							<p:menuitem value="Carro" action="/carro/PesquisaCarro.xhtml?faces-redirect=true"/>
 							<p:separator/>
 							<p:menuitem value="Funcionário" />
 							<p:menuitem value="Motorista" />

@@ -5,15 +5,15 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">#{pesquisaFabricanteBean.getPageTitle('PESQUISA_FABRICANTE')}</ui:define>
+    <ui:define name="titulo" value="#{pesquisaFabricanteBean.getPageTitle('PESQUISA_FABRICANTE')}"></ui:define>
     
     <ui:define name="corpo">
     	<h1>
-    		<h:outputText value="#{pesquisaFabricanteBean.getPageTitle('PESQUISA_FABRICANTE')}" />
+    		<p:outputLabel value="#{pesquisaFabricanteBean.getPageTitle('PESQUISA_FABRICANTE')}" title="true"/>
     	</h1>
     	
     	<h:form id="frmPesquisa">
-    		<p:growl id="message" showDetail="true" />
+    		<p:messages id="messages" autoUpdate="true" closable="true" />
     		
     		<p:toolbar style="margin-top: 20px">
     			<p:toolbarGroup>
@@ -22,7 +22,9 @@
     		</p:toolbar>
     	
 	    	<p:dataTable id="fabricantesTable" value="#{pesquisaFabricanteBean.fabricantes}" var="fabricante"
-		    		style="margin-top: 20px" emptyMessage="Nenhum fabricante encontrado." rows="20"
+	    		 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros" 
+		    		style="margin-top: 20px" emptyMessage="Nenhum fabricante encontrado." rows="10"
 		    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
 		    		<p:column headerText="Código" style="text-align: center; width: 100px">
 		    			<h:outputText value="#{fabricante.codigo}" />
@@ -31,11 +33,11 @@
 		    			<h:outputText value="#{fabricante.nome}" />
 		    		</p:column>
 		    		<p:column style="width: 100px; text-align: center">
-		    			<p:button outcome="CadastroFabricante" icon="ui-icon-pencil" title="Editar">
+		    			<p:button outcome="CadastroFabricante" icon="pi pi-pencil" title="Editar">
 		    				<f:param name="fabricante" value="#{fabricante.codigo}"/>
 		    			</p:button>
-		    			<p:commandButton icon="ui-icon-trash" title="Excluir" onclick="PF('confirmacaoExclusao').show();"
-								process="@this" update=":frmPesquisa:message">
+		    			<p:commandButton icon="pi pi-trash" title="Excluir" onclick="PF('confirmacaoExclusao').show();"
+								process="@this" update=":frmPesquisa:messages">
 							<f:setPropertyActionListener target="#{pesquisaFabricanteBean.fabricanteSelecionado}" value="#{fabricante}" />
 						</p:commandButton>
 		    		</p:column>

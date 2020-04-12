@@ -7,6 +7,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import java.util.List;
 
+import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 
 import com.locadoraveiculosweb.dao.FabricanteDAO;
@@ -15,6 +16,7 @@ import com.locadoraveiculosweb.modelo.Fabricante;
 import com.locadoraveiculosweb.modelo.dtos.FabricanteDto;
 import com.locadoraveiculosweb.util.jpa.Transactional;
 
+@Model
 public class FabricanteService implements Service<FabricanteDto> {
 	private static final long serialVersionUID = 1L;
 	

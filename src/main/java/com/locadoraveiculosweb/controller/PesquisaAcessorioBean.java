@@ -8,6 +8,8 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.omnifaces.cdi.ViewScoped;
+
 import com.locadoraveiculosweb.modelo.dtos.AcessorioDto;
 import com.locadoraveiculosweb.service.AcessorioService;
 import com.locadoraveiculosweb.service.Service;
@@ -17,6 +19,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Named
+@ViewScoped
 public class PesquisaAcessorioBean extends BeanController<AcessorioDto> {
 	
 	private static final long serialVersionUID = 1L;
@@ -33,7 +36,7 @@ public class PesquisaAcessorioBean extends BeanController<AcessorioDto> {
 	@Override
 	@PostConstruct
 	public void initializer(){
-		this.acessorios = acessorioService.buscarTodos();
+		this.acessorios = buscarTodos();
 	}
 
 	@Override

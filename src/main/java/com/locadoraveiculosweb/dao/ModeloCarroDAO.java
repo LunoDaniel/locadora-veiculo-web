@@ -1,44 +1,31 @@
 package com.locadoraveiculosweb.dao;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
+import static com.locadoraveiculosweb.constants.MessageConstants.ViewMessages.MODELO_CARRO_EXCLUIDO_COM_SUCESSO;
+import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
 
 import com.locadoraveiculosweb.modelo.ModeloCarro;
-import com.locadoraveiculosweb.service.NegocioException;
-import com.locadoraveiculosweb.util.jpa.Transactional;
 
-public class ModeloCarroDAO implements Serializable {
+public class ModeloCarroDAO extends BaseDAO<ModeloCarro> {
 	private static final long serialVersionUID = 1L;
-	
-	@Inject
-	private EntityManager manager;
-	
-	public ModeloCarro buscarPeloCodigo(Long codigo) {
-		return manager.find(ModeloCarro.class, codigo);
-	}
-	
-	public void salvar(ModeloCarro modeloCarro) {
-		manager.merge(modeloCarro);
+
+	@Override
+	protected Class<ModeloCarro> getEntityClass() {
+		return ModeloCarro.class;
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<ModeloCarro> buscarTodos() {
-		return manager.createQuery("from ModeloCarro").getResultList();
+	@Override
+	protected String getErroMessage(ModeloCarro object) {
+		return getMessage(MODELO_CARRO_EXCLUIDO_COM_SUCESSO.getDescription(), object.getDescricao());
 	}
-	
-	@Transactional
-	public void excluir(ModeloCarro modeloCarro) throws NegocioException {
-		modeloCarro = buscarPeloCodigo(modeloCarro.getCodigo());
-		try {
-			manager.remove(modeloCarro);
-			manager.flush();
-		} catch (PersistenceException e) {
-			throw new NegocioException("Este modelo nÃ£o pode ser excluÃ­do.");
-		}
+
+	@Override
+	protected String queryForAll() {
+		return "ModeloCarro.findAll";
+	}
+
+	@Override
+	protected String getCacheKey() {
+		return "modeloCarroCache";
 	}
 	
 }

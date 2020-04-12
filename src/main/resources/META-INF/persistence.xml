@@ -4,7 +4,18 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	
 	<persistence-unit name="locadoraVeiculoPU" transaction-type="RESOURCE_LOCAL">
+			<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		 	<class>com.locadoraveiculosweb.modelo.Fabricante</class>
+		 	<class>com.locadoraveiculosweb.modelo.Acessorio</class>
+		 	<class>com.locadoraveiculosweb.modelo.Aluguel</class>
+		 	<class>com.locadoraveiculosweb.modelo.ApoliceSeguro</class>
+		 	<class>com.locadoraveiculosweb.modelo.Carro</class>
+		 	<class>com.locadoraveiculosweb.modelo.Funcionario</class>
+		 	<class>com.locadoraveiculosweb.modelo.ModeloCarro</class>
+		 	<class>com.locadoraveiculosweb.modelo.Motorista</class>
+		 	<class>com.locadoraveiculosweb.modelo.Pessoa</class>
 		<properties>
+		
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> <!-- DB Driver -->
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/locadora" /> <!-- BD Mane -->
             <property name="javax.persistence.jdbc.user" value="postgres" /> <!-- DB User -->
@@ -16,7 +27,9 @@
             
             <property name="hibernate.show_sql" value="true" /> <!-- Show SQL in console -->
             <property name="hibernate.format_sql" value="true" /> <!-- Show SQL formatted -->
+            <property name="hibernate.archive.autodetection" value="class, hbm"/>
+            
 		</properties>
+		
 	</persistence-unit>
-	
 </persistence>

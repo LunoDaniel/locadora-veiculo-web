@@ -1,36 +1,28 @@
 package com.locadoraveiculosweb.converter;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
+import java.util.Optional;
+
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
-import com.locadoraveiculosweb.dao.ModeloCarroDAO;
-import com.locadoraveiculosweb.modelo.ModeloCarro;
+import com.locadoraveiculosweb.modelo.dtos.ModeloCarroDto;
+import com.locadoraveiculosweb.service.ModeloCarroService;
+import com.locadoraveiculosweb.service.Service;
 
-@FacesConverter(forClass=ModeloCarro.class)
-public class ModeloCarroConverter implements Converter<ModeloCarro> {
+@FacesConverter(forClass=ModeloCarroDto.class)
+public class ModeloCarroConverter extends BeanConverter<ModeloCarroDto> {
 
 	@Inject
-	private ModeloCarroDAO modeloCarroDAO;
+	private ModeloCarroService modeloCarroService;
 
-	public ModeloCarro getAsObject(FacesContext context, UIComponent component, String value) {
-		ModeloCarro retorno = null;
-
-		if (value != null) {
-			retorno = this.modeloCarroDAO.buscarPeloCodigo(new Long(value));
-		}
-
-		return retorno;
+	@Override
+	protected String getValue(ModeloCarroDto value) {
+		return Optional.of(Optional.ofNullable(value.getCodigo()).toString()).orElse(null);
 	}
 
-	public String getAsString(FacesContext context, UIComponent component, ModeloCarro value) {
-		if (value != null) {
-			Long codigo = value.getCodigo();
-			return codigo == null ? null : codigo.toString();
-		}
-		return "";
+	@Override
+	protected Service<ModeloCarroDto> getService() {
+		return modeloCarroService;
 	}
 
 }

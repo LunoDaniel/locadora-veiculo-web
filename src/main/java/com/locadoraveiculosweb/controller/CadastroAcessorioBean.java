@@ -1,5 +1,6 @@
 package com.locadoraveiculosweb.controller;
 
+import static com.locadoraveiculosweb.constants.MessageConstants.ViewMessages.ACESSORIO_SALVO_COM_SUCESSO;
 import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
 
 import javax.annotation.PostConstruct;
@@ -8,7 +9,6 @@ import javax.inject.Named;
 
 import org.omnifaces.cdi.ViewScoped;
 
-import com.locadoraveiculosweb.constants.MessageConstants;
 import com.locadoraveiculosweb.modelo.dtos.AcessorioDto;
 import com.locadoraveiculosweb.service.AcessorioService;
 import com.locadoraveiculosweb.service.Service;
@@ -50,7 +50,7 @@ public class CadastroAcessorioBean extends BeanController<AcessorioDto> {
 
 	@Override
 	protected String getSuccessMessage(AcessorioDto object) {
-		return getMessage(MessageConstants.ViewMessages.ACESSORIO_SALVO_COM_SUCESSO.getDescription(), object.getDescricao());
+		return getMessage(ACESSORIO_SALVO_COM_SUCESSO.getDescription(), object.getDescricao());
 	}
 	
 }

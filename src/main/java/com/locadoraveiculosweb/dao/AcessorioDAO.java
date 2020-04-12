@@ -1,44 +1,31 @@
 package com.locadoraveiculosweb.dao;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
+import static com.locadoraveiculosweb.constants.MessageConstants.ViewMessages.ACESSORIO_EXCLUIDO_COM_SUCESSO;
+import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
 
 import com.locadoraveiculosweb.modelo.Acessorio;
-import com.locadoraveiculosweb.service.NegocioException;
-import com.locadoraveiculosweb.util.jpa.Transactional;
 
-public class AcessorioDAO implements Serializable {
+public class AcessorioDAO extends BaseDAO<Acessorio> {
 	private static final long serialVersionUID = 1L;
 
-	@Inject
-	EntityManager em;
-	
-	@Transactional
-	public Acessorio salvar(Acessorio acessorio){
-		return em.merge(acessorio);
+	@Override
+	protected Class<Acessorio> getEntityClass() {
+		return Acessorio.class;
 	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Acessorio> buscarTodos(){
-		return em.createQuery("from Acessorio").getResultList();
+
+	@Override
+	protected String getErroMessage(Acessorio object) {
+		return getMessage(ACESSORIO_EXCLUIDO_COM_SUCESSO.getDescription(), object.getDescricao());
 	}
-	
-	public Acessorio buscarPeloCodigo(Long codigo){
-		return em.find(Acessorio.class, codigo);
+
+	@Override
+	protected String queryForAll() {
+		return "Acessorio.findAll";
 	}
-	
-	@Transactional
-	public void excluir(Acessorio acessorio) throws NegocioException{
-		acessorio = this.buscarPeloCodigo(acessorio.getCodigo());		
-		try {
-			em.remove(acessorio);
-			em.flush();
-		} catch (PersistenceException e) {
-			throw new NegocioException(e.getMessage());
-		}
+
+	@Override
+	protected String getCacheKey() {
+		return "acessorioCache";
 	}
+
 }

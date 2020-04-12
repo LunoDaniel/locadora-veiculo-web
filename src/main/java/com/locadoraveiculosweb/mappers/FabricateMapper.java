@@ -2,11 +2,14 @@ package com.locadoraveiculosweb.mappers;
 
 import java.util.List;
 
+import javax.enterprise.inject.Model;
+
 import org.mapstruct.Mapper;
 
 import com.locadoraveiculosweb.modelo.Fabricante;
 import com.locadoraveiculosweb.modelo.dtos.FabricanteDto;
 
+@Model
 @Mapper
 public interface FabricateMapper {
 	

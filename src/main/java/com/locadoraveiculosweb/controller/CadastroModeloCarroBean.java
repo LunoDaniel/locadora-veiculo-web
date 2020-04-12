@@ -1,7 +1,9 @@
 package com.locadoraveiculosweb.controller;
 
-import java.io.Serializable;
-import java.util.Arrays;
+import static com.locadoraveiculosweb.constants.MessageConstants.ViewMessages.MODELO_CARRO_SALVO_COM_SUCESSO;
+import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
+import static java.util.Arrays.asList;
+
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,68 +12,61 @@ import javax.inject.Named;
 
 import org.omnifaces.cdi.ViewScoped;
 
-import com.locadoraveiculosweb.dao.FabricanteDAO;
 import com.locadoraveiculosweb.modelo.Categoria;
-import com.locadoraveiculosweb.modelo.Fabricante;
-import com.locadoraveiculosweb.modelo.ModeloCarro;
-import com.locadoraveiculosweb.service.CadastroModeloCarroService;
-import com.locadoraveiculosweb.service.NegocioException;
-import com.locadoraveiculosweb.util.jsf.FacesUtil;
+import com.locadoraveiculosweb.modelo.dtos.FabricanteDto;
+import com.locadoraveiculosweb.modelo.dtos.ModeloCarroDto;
+import com.locadoraveiculosweb.service.FabricanteService;
+import com.locadoraveiculosweb.service.ModeloCarroService;
+import com.locadoraveiculosweb.service.Service;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Named
 @ViewScoped
-public class CadastroModeloCarroBean implements Serializable{
+public class CadastroModeloCarroBean extends BeanController<ModeloCarroDto> {
 	private static final long serialVersionUID = 1L;
 	
-	private ModeloCarro modeloCarro;
-	private List<Fabricante> fabricantes;
+	@Getter @Setter
+	private ModeloCarroDto modeloCarro;
+	
+	@Getter @Setter
+	private List<FabricanteDto> fabricantes;
+	
+	@Getter @Setter
 	private List<Categoria> categorias;
 	
 	@Inject
-	private CadastroModeloCarroService cadastroModeloCarroService;
+	private ModeloCarroService modeloCarroService;
+	
 	@Inject
-	private FabricanteDAO fabricanteDao;
-	
-	public void salvar(){
-		try {
-			this.cadastroModeloCarroService.salvar(modeloCarro);
-			FacesUtil.addSuccessMessage("Modelo Salvo com Sucesso!");
-		} catch (NegocioException e) {
-			FacesUtil.addErrorMessage(e.getMessage());
-		}
-		
-		this.limpar();
-	}
-	
+	private FabricanteService fabricanteService;
+
+	@Override
 	@PostConstruct
-	public void inicializar(){
-		this.limpar();
-		this.setFabricantes(fabricanteDao.buscarTodos());
-		this.categorias = Arrays.asList(Categoria.values());
-	}
-	
-	public void limpar(){
-		this.modeloCarro = new ModeloCarro();
+	public void initializer() {
+		clean();
+		this.setFabricantes(fabricanteService.buscarTodos());
+		this.categorias = asList(Categoria.values());
 	}
 
-	public ModeloCarro getModeloCarro() {
+	@Override
+	protected void clean() {
+		this.modeloCarro = new ModeloCarroDto();
+	}
+
+	@Override
+	protected Service<ModeloCarroDto> getService() {
+		return modeloCarroService;
+	}
+
+	@Override
+	protected ModeloCarroDto getViewObject() {
 		return modeloCarro;
 	}
 
-	public void setModeloCarro(ModeloCarro modeloCarro) {
-		this.modeloCarro = modeloCarro;
+	@Override
+	protected String getSuccessMessage(ModeloCarroDto modeloCarro) {
+		return getMessage(MODELO_CARRO_SALVO_COM_SUCESSO.getDescription(), modeloCarro.getDescricao());
 	}
-
-	public List<Fabricante> getFabricantes() {
-		return fabricantes;
-	}
-
-	public void setFabricantes(List<Fabricante> fabricantes) {
-		this.fabricantes = fabricantes;
-	}
-
-	public List<Categoria> getCategorias() {
-		return categorias;
-	}
-
 }
