@@ -1,6 +1,6 @@
 package com.locadoraveiculosweb.dao;
 
-import static com.locadoraveiculosweb.constants.MessageConstants.ViewMessages.ERRO_AO_EXCLUIR_O_FABRICANTE;
+import static com.locadoraveiculosweb.constants.MessageConstants.BusinessMessages.ERRO_AO_EXCLUIR_O_FABRICANTE;
 import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
 
 import com.locadoraveiculosweb.modelo.Fabricante;

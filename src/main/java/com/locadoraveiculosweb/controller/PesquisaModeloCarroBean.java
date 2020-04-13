@@ -20,7 +20,7 @@ import lombok.Setter;
 
 @Named
 @ViewScoped
-public class PesquisaModeloCarroBean extends BeanController<ModeloCarroDto> {
+public class PesquisaModeloCarroBean extends BaseController<ModeloCarroDto> {
 
 	private static final long serialVersionUID = 1L;
 	

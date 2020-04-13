@@ -1,6 +1,7 @@
 package com.locadoraveiculosweb.controller;
 
-import java.io.Serializable;
+import static com.locadoraveiculosweb.constants.MessageConstants.ViewMessages.CARRO_SALVO_COM_SUCESSO;
+
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,69 +10,68 @@ import javax.inject.Named;
 
 import org.omnifaces.cdi.ViewScoped;
 
-import com.locadoraveiculosweb.dao.AcessorioDAO;
-import com.locadoraveiculosweb.dao.CarroDAO;
-import com.locadoraveiculosweb.modelo.Acessorio;
-import com.locadoraveiculosweb.modelo.Carro;
-import com.locadoraveiculosweb.service.NegocioException;
-import com.locadoraveiculosweb.util.jsf.FacesUtil;
+import com.locadoraveiculosweb.modelo.dtos.AcessorioDto;
+import com.locadoraveiculosweb.modelo.dtos.CarroDto;
+import com.locadoraveiculosweb.service.AcessorioService;
+import com.locadoraveiculosweb.service.CarroService;
+import com.locadoraveiculosweb.service.Service;
+import com.locadoraveiculosweb.util.messages.MessageUtils;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Named
 @ViewScoped
-public class PesquisaCarroBean implements Serializable{
+public class PesquisaCarroBean extends BaseController<CarroDto> { 
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private CarroDAO carroDao;
+	private CarroService carroService;
+	
 	@Inject
-	private AcessorioDAO acessorioDao;
+	private AcessorioService acessorioService;
 	
-	private List<Carro> carros;
-	private List<Acessorio> acessorios;
-	private Carro carroSelecionado;
+	@Getter @Setter
+	private List<CarroDto> carros;
 	
-	@PostConstruct
-	public void inicializar(){
-		this.carros = carroDao.buscarTodos();
-		this.acessorios = acessorioDao.buscarTodos();
-	}
+	@Getter @Setter
+	private List<AcessorioDto> acessorios;
 	
-	public void excluir(){
-		try {
-			this.carroDao.excluir(carroSelecionado);
-			this.carros.remove(carroSelecionado);
-			FacesUtil.addSuccessMessage("Carro "+ carroSelecionado.getModelo() +" foi Excluído com Sucesso!");
-		} catch (NegocioException e) {
-			FacesUtil.addErrorMessage(e.getMessage());
-		}
-	}
-
+	@Getter @Setter
+	private CarroDto carroSelecionado;
+	
+	
 	public void buscarCarroComAcessorios() {
-		carroSelecionado = carroDao.buscarCarroComAcessorios(carroSelecionado.getCodigo());
-	}
-	
-	public List<Carro> getCarros() {
-		return carros;
+		carroSelecionado = carroService.buscarCarroComAcessorios(carroSelecionado.getCodigo());
 	}
 
-	public void setCarros(List<Carro> carros) {
-		this.carros = carros;
+	@Override
+	@PostConstruct
+	public void initializer() {
+		this.carros = carroService.buscarTodos();
+		this.acessorios = acessorioService.buscarTodos();
 	}
 
-	public Carro getCarroSelecionado() {
+	@Override
+	protected void clean() {
+		carros.remove(carroSelecionado);
+	}
+
+	@Override
+	protected Service<CarroDto> getService() {
+		return carroService;
+	}
+
+
+	@Override
+	protected CarroDto getViewObject() {
 		return carroSelecionado;
 	}
 
-	public void setCarroSelecionado(Carro carroSelecionado) {
-		this.carroSelecionado = carroSelecionado;
-	}
 
-	public List<Acessorio> getAcessorios() {
-		return acessorios;
-	}
-
-	public void setAcessorios(List<Acessorio> acessorios) {
-		this.acessorios = acessorios;
+	@Override
+	protected String getSuccessMessage(CarroDto object) {
+		return MessageUtils.getMessage(CARRO_SALVO_COM_SUCESSO.getDescription(), object.getChassi());
 	}
 
 }

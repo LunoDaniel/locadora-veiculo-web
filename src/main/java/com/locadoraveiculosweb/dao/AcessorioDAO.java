@@ -1,6 +1,6 @@
 package com.locadoraveiculosweb.dao;
 
-import static com.locadoraveiculosweb.constants.MessageConstants.ViewMessages.ACESSORIO_EXCLUIDO_COM_SUCESSO;
+import static com.locadoraveiculosweb.constants.MessageConstants.BusinessMessages.ERRO_AO_EXCLUIR_O_ACESSORIO;
 import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
 
 import com.locadoraveiculosweb.modelo.Acessorio;
@@ -15,7 +15,7 @@ public class AcessorioDAO extends BaseDAO<Acessorio> {
 
 	@Override
 	protected String getErroMessage(Acessorio object) {
-		return getMessage(ACESSORIO_EXCLUIDO_COM_SUCESSO.getDescription(), object.getDescricao());
+		return getMessage(ERRO_AO_EXCLUIR_O_ACESSORIO.getDescription(), object.getDescricao());
 	}
 
 	@Override

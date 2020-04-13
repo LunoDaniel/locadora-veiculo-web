@@ -19,7 +19,7 @@ import lombok.Setter;
 
 @Named
 @ViewScoped
-public class CadastroFabricanteBean extends BeanController<FabricanteDto> {
+public class CadastroFabricanteBean extends BaseController<FabricanteDto> {
 
 	private static final long serialVersionUID = 1L;
 	

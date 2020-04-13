@@ -1,6 +1,6 @@
 package com.locadoraveiculosweb.converter;
 
-import java.util.Optional;
+import static java.util.Optional.ofNullable;
 
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
@@ -9,6 +9,9 @@ import com.locadoraveiculosweb.modelo.dtos.ModeloCarroDto;
 import com.locadoraveiculosweb.service.ModeloCarroService;
 import com.locadoraveiculosweb.service.Service;
 
+import lombok.Getter;
+
+@Getter
 @FacesConverter(forClass=ModeloCarroDto.class)
 public class ModeloCarroConverter extends BeanConverter<ModeloCarroDto> {
 
@@ -17,7 +20,7 @@ public class ModeloCarroConverter extends BeanConverter<ModeloCarroDto> {
 
 	@Override
 	protected String getValue(ModeloCarroDto value) {
-		return Optional.of(Optional.ofNullable(value.getCodigo()).toString()).orElse(null);
+		return String.valueOf(ofNullable(value.getCodigo()).orElse(null));
 	}
 
 	@Override

@@ -11,7 +11,7 @@ import com.locadoraveiculosweb.constants.LabelConstants;
 import com.locadoraveiculosweb.service.NegocioException;
 import com.locadoraveiculosweb.service.Service;
 
-public abstract class BeanController<T> implements Serializable {
+public abstract class BaseController<T> implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	

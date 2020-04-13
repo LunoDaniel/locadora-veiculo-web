@@ -1,49 +1,39 @@
 package com.locadoraveiculosweb.dao;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
+import static com.locadoraveiculosweb.constants.MessageConstants.BusinessMessages.ERRO_AO_EXCLUIR_O_CARRO;
+import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
 
 import com.locadoraveiculosweb.modelo.Carro;
-import com.locadoraveiculosweb.service.NegocioException;
-import com.locadoraveiculosweb.util.jpa.Transactional;
 
-public class CarroDAO implements Serializable{
+public class CarroDAO extends BaseDAO<Carro> {
 	private static final long serialVersionUID = 1L;
 	
-	@Inject
-	EntityManager em;
-	
-	@Transactional
-	public void excluir(Carro carro) throws NegocioException {
-		carro = this.buscarPeloCodigo(carro.getCodigo());
-		try {
-			em.remove(carro);
-			em.flush();
-		} catch (PersistenceException e) {
-			throw new NegocioException(e.getMessage());
-		}
-	}
-	
-	public void salvar(Carro carro){
-		em.merge(carro);
-	}
-	
-	public Carro buscarPeloCodigo(Long codigo){
-		return em.find(Carro.class, codigo);
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Carro> buscarTodos(){
-		return em.createQuery("from Carro").getResultList();
-	}
 
 	public Carro buscarCarroComAcessorios(Long codigo) {
-		return (Carro) em.createQuery("select c from Carro c JOIN c.acessorios a where c.codigo = ?")
-				.setParameter(1, codigo)
-				.getSingleResult();
+		return (Carro) getEm().createNamedQuery("Carro.findCarWithAcessories")
+									.setParameter("codigo", codigo)
+							  .getSingleResult();
+	}
+
+	@Override
+	protected Class<Carro> getEntityClass() {
+		return Carro.class;
+	}
+
+
+	@Override
+	protected String getErroMessage(Carro object) {
+		return getMessage(ERRO_AO_EXCLUIR_O_CARRO.getDescription(), object.getChassi()) ;
+	}
+
+
+	@Override
+	protected String queryForAll() {
+		return "Carro.findAll";
+	}
+
+	@Override
+	protected String getCacheKey() {
+		return "CarrosCache";
 	}
 }

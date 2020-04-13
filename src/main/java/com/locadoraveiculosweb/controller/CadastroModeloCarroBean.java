@@ -1,6 +1,7 @@
 package com.locadoraveiculosweb.controller;
 
 import static com.locadoraveiculosweb.constants.MessageConstants.ViewMessages.MODELO_CARRO_SALVO_COM_SUCESSO;
+import static com.locadoraveiculosweb.modelo.Categoria.values;
 import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
 import static java.util.Arrays.asList;
 
@@ -24,7 +25,7 @@ import lombok.Setter;
 
 @Named
 @ViewScoped
-public class CadastroModeloCarroBean extends BeanController<ModeloCarroDto> {
+public class CadastroModeloCarroBean extends BaseController<ModeloCarroDto> {
 	private static final long serialVersionUID = 1L;
 	
 	@Getter @Setter
@@ -47,7 +48,7 @@ public class CadastroModeloCarroBean extends BeanController<ModeloCarroDto> {
 	public void initializer() {
 		clean();
 		this.setFabricantes(fabricanteService.buscarTodos());
-		this.categorias = asList(Categoria.values());
+		this.categorias = asList(values());
 	}
 
 	@Override

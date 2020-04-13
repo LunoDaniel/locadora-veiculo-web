@@ -1,29 +1,29 @@
 package com.locadoraveiculosweb.modelo;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
-public class Carro implements Serializable {
+@NamedQueries(value = {
+		@NamedQuery(name = "Carro.findAll", query = "select c from Carro c"),
+		@NamedQuery(name = "Carro.findCarWithAcessories", query = "select c from Carro c JOIN c.acessorios a where c.codigo = :codigo"),
+})
+public class Carro extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long codigo;
-	
 	private BigDecimal valorDiaria;
 	private String placa;
 	private String chassi;
@@ -31,8 +31,10 @@ public class Carro implements Serializable {
 	
 	@OneToMany(mappedBy="carro")
 	private List<Aluguel> alugueis;
+	
 	@ManyToMany
 	private List<Acessorio> acessorios;
+	
 	@ManyToOne
 	private ModeloCarro modelo;
 	

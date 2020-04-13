@@ -18,7 +18,7 @@ import lombok.Setter;
 
 @Named
 @ViewScoped
-public class CadastroAcessorioBean extends BeanController<AcessorioDto> {
+public class CadastroAcessorioBean extends BaseController<AcessorioDto> {
 	private static final long serialVersionUID = 1L;
 	
 	@Inject

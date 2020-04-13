@@ -1,6 +1,5 @@
 package com.locadoraveiculosweb.controller;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,78 +8,67 @@ import javax.inject.Named;
 
 import org.omnifaces.cdi.ViewScoped;
 
-import com.locadoraveiculosweb.dao.AcessorioDAO;
-import com.locadoraveiculosweb.dao.ModeloCarroDAO;
-import com.locadoraveiculosweb.modelo.Acessorio;
-import com.locadoraveiculosweb.modelo.Carro;
-import com.locadoraveiculosweb.modelo.ModeloCarro;
-import com.locadoraveiculosweb.service.CadastroCarroService;
-import com.locadoraveiculosweb.service.NegocioException;
-import com.locadoraveiculosweb.util.jsf.FacesUtil;
+import com.locadoraveiculosweb.modelo.dtos.AcessorioDto;
+import com.locadoraveiculosweb.modelo.dtos.CarroDto;
+import com.locadoraveiculosweb.modelo.dtos.ModeloCarroDto;
+import com.locadoraveiculosweb.service.AcessorioService;
+import com.locadoraveiculosweb.service.CarroService;
+import com.locadoraveiculosweb.service.ModeloCarroService;
+import com.locadoraveiculosweb.service.Service;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Named
 @ViewScoped
-public class CadastroCarroBean implements Serializable{
+public class CadastroCarroBean extends BaseController<CarroDto>{
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private CadastroCarroService cadastroCarroService;
-	@Inject
-	private ModeloCarroDAO modeloCarroDao;
-	@Inject
-	private AcessorioDAO acessorioDao;
+	private CarroService cadastroCarroService;
 	
-	private List<ModeloCarro> modelosCarros;
-	private List<Acessorio> acessorios;
-	private Carro carro;
+	@Inject
+	private ModeloCarroService modeloCarroService;
 	
+	@Inject
+	private AcessorioService acessorioService;
+	
+	@Getter @Setter
+	private List<ModeloCarroDto> modelosCarros;
+	
+	@Getter @Setter
+	private List<AcessorioDto> acessorios;
+	
+	@Getter @Setter
+	private CarroDto carro;
+	
+
 	@PostConstruct
-	public void inicializar(){
-		this.limpar();
-		this.modelosCarros = this.modeloCarroDao.buscarTodos();
-		this.acessorios = acessorioDao.buscarTodos();
-	}
-	
-	public void limpar(){
-		this.carro = new Carro();
-	}
-	
-	public void salvar(){
-		try {
-			this.cadastroCarroService.salvar(carro);
-			FacesUtil.addSuccessMessage("Carro salvo com sucesso!");
-		} catch (NegocioException e) {
-			FacesUtil.addErrorMessage(e.getMessage());
-		} catch (Exception e) {
-			e.printStackTrace();
-			FacesUtil.addErrorMessage("Erro desconhecido. Contatar o administrador");
-		}
-		
-		this. 	limpar();
+	@Override
+	public void initializer() {
+		clean();
+		modelosCarros = modeloCarroService.buscarTodos();
+		acessorios = acessorioService.buscarTodos();
 	}
 
-	public List<ModeloCarro> getModelosCarros() {
-		return modelosCarros;
+	@Override
+	protected void clean() {
+		this.carro = new CarroDto();
 	}
 
-	public void setModelosCarros(List<ModeloCarro> modelosCarros) {
-		this.modelosCarros = modelosCarros;
+	@Override
+	protected Service<CarroDto> getService() {
+		return cadastroCarroService;
 	}
 
-	public List<Acessorio> getAcessorios() {
-		return acessorios;
-	}
-
-	public void setAcessorios(List<Acessorio> acessorios) {
-		this.acessorios = acessorios;
-	}
-
-	public Carro getCarro() {
+	@Override
+	protected CarroDto getViewObject() {
 		return carro;
 	}
 
-	public void setCarro(Carro carro) {
-		this.carro = carro;
+	@Override
+	protected String getSuccessMessage(CarroDto object) {
+		return null;
 	}
 	
 	

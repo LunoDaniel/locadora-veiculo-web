@@ -1,6 +1,6 @@
 package com.locadoraveiculosweb.converter;
 
-import java.util.Optional;
+import static java.util.Optional.ofNullable;
 
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
@@ -20,7 +20,7 @@ public class FabricanteConverter extends BeanConverter<FabricanteDto> {
 
 	@Override
 	protected String getValue(FabricanteDto value) {
-		return Optional.of(Optional.ofNullable(value.getCodigo()).toString()).orElse(null);
+		return String.valueOf(ofNullable(value.getCodigo()).orElse(null));
 	}
 
 	@Override

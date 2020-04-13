@@ -5,16 +5,17 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Pesquisa de modelo de carro</ui:define>
+    <ui:define name="titulo" value="#{pesquisaModeloCarroBean.getPageTitle('PESQUISA_MODELO_CARRO')}" />
     
     <ui:define name="corpo">
-    	<h1>Pesquisa de modelo de carro</h1>
+    
+    	<h1><p:outputLabel value="#{pesquisaModeloCarroBean.getPageTitle('PESQUISA_MODELO_CARRO')}" /></h1>
     	
     	<h:form id="frmPesquisa">
     		<p:messages id="messages" autoUpdate="true" closable="true" />
 	    	<p:toolbar style="margin-top: 20px">
 	    		<p:toolbarGroup>
-	    			<p:commandButton value="Novo" id="botaoNovo" />
+	    			<p:commandButton value="Novo" id="botaoNovo" action="/modeloCarro/CadastroModeloCarro.xhtml" />
 	    		</p:toolbarGroup>
 	    	</p:toolbar>
 	    	
@@ -31,24 +32,24 @@
 	    			<h:outputText value="#{modeloCarro.fabricante.nome}" />
 	    		</p:column>
 	    		<p:column headerText="Categoria">
-	    			<h:outputText value="#{modeloCarro.categoria}" />
+	    			<h:outputText value="#{modeloCarro.categoria.description}" />
 	    		</p:column>
 	    		<p:column style="width: 100px; text-align: center">
-		    		<p:button outcome="CadastroModeloCarro" icon="ui-icon-pencil" title="Editar">
+		    		<p:button outcome="CadastroModeloCarro" icon="pi pi-pencil" title="Editar">
 		    			<f:param name="modeloCarro" value="#{modeloCarro.codigo}"/>
 		    		</p:button>
-		    		<h:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmacaoExclusao.show()"
-							process="@this" update=":frmPesquisa:confirmacaoExclusaoDialog">
+		    		<p:commandButton icon="pi pi-trash" title="Excluir" onclick="PF('confirmacaoExclusao').show();"
+							process="@this" update=":frmPesquisa:messages">
 						<f:setPropertyActionListener target="#{pesquisaModeloCarroBean.modeloCarroSelecionado}" value="#{modeloCarro}" />
-					</h:commandButton>
+					</p:commandButton>
 		    	</p:column>
 		   	</p:dataTable>
 		   	<p:confirmDialog id="confirmacaoExclusaoDialog" widgetVar="confirmacaoExclusao"
 	        		message="Tem certeza que deseja excluir o modelo #{pesquisaModeloCarroBean.modeloCarroSelecionado.descricao}?"  
 	                header="Exclusão de modelo de carro" severity="alert">
-	        	<p:button value="Não" onclick="confirmacaoExclusao.hide(); return false;" />
+	        	<p:button value="Não" onclick="PF('confirmacaoExclusao').hide(); return false;" />
 	        	<p:commandButton value="Sim" update=":frmPesquisa:modelosCarroTable"
-	        			onclick="confirmacaoExclusao.hide()" action="#{pesquisaModelosCarroBean.excluir}" />
+	        			onclick="PF('confirmacaoExclusao').hide()" action="#{pesquisaModelosCarroBean.excluir}" />
 	    	</p:confirmDialog>
     	</h:form>
     </ui:define>

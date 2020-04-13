@@ -6,14 +6,14 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:o="http://omnifaces.org/ui">
 
-    <ui:define name="titulo">Novo carro</ui:define>
+    <ui:define name="titulo" value="#{cadastroCarroBean.getPageTitle('NOVO_CARRO')}" />
     
     <ui:define name="corpo">
     	<f:metadata>
 			<o:viewParam name="carro" value="#{cadastroCarroBean.carro}" />
 		</f:metadata>
     
-    	<h1>Novo carro</h1>
+    	<h1><p:outputLabel value="#{cadastroCarroBean.getPageTitle('NOVO_CARRO')}" /></h1>
     	
     	<h:form id="frmCadastro">
     		<p:messages id="messages" autoUpdate="true" closable="true" />
@@ -23,7 +23,7 @@
 	    			<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroCarroBean.salvar}" update="frmCadastro"/>
 	    		</p:toolbarGroup>
 	    		<p:toolbarGroup align="right">
-					<p:button value="Pesquisa" />
+					<p:commandButton value="Pesquisa" action="/carro/PesquisaCarro.xhtml" />
 				</p:toolbarGroup>
 	    	</p:toolbar>
 	    	
@@ -52,7 +52,7 @@
 			    
 			    <p:outputLabel value="Acessórios" for="acessorios"/>
 				<p:selectManyCheckbox id="acessorios" styleClass="many-checkbox" 
-						value="#{cadastroCarroBean.carro.acessorios}" converter="acessorioConverter">
+						value="#{cadastroCarroBean.carro.acessorios}" converter="#{acessorioConverter}">
 					<f:selectItems value="#{cadastroCarroBean.acessorios}" var="acessorio" 
 						itemLabel="#{acessorio.descricao}" itemValue="#{acessorio}" />
 				</p:selectManyCheckbox>			    

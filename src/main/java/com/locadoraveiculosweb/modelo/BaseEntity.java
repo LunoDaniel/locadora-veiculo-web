@@ -23,5 +23,8 @@ public class BaseEntity implements Serializable {
 	
 	@Column(name="data_criacao")
 	Date dataCriacao;
+	
+	@Column(name="data_alteracao")
+	Date dataAlteracao;
 
 }

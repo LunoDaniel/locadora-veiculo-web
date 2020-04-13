@@ -11,17 +11,28 @@ import com.locadoraveiculosweb.service.NegocioException;
 import com.locadoraveiculosweb.util.jpa.Cache;
 import com.locadoraveiculosweb.util.jpa.Transactional;
 
+import lombok.Getter;
+
 public abstract class BaseDAO<T extends BaseEntity> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Getter
 	@Inject
 	private EntityManager em;
 	
 	@Inject
 	Cache<T> cache;
 	
+	@SuppressWarnings("unchecked")
 	public T salvar(T o) {
-		return em.merge(o);
+		T saved = em.merge(o);
+		
+		if(cache.isInCache(getCacheKey())) {
+			List<T> list = (List<T>) cache.getValue(getCacheKey());
+			list.add(saved);
+		}
+		
+		return saved;
 	}
 
 	@Transactional
@@ -38,7 +49,7 @@ public abstract class BaseDAO<T extends BaseEntity> implements Serializable {
 
 	@SuppressWarnings("unchecked")
 	public List<T> buscarTodos() {
-		if(cache.containsKey(getCacheKey())) {
+		if(cache.isInCache(getCacheKey())) {
 			return (List<T>) cache.getValue(getCacheKey());
 		}
 		

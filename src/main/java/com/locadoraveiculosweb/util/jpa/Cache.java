@@ -1,5 +1,7 @@
 package com.locadoraveiculosweb.util.jpa;
 
+import static org.apache.commons.lang3.ObjectUtils.isEmpty;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,14 +21,14 @@ public class Cache<T> {
 	@Getter
 	Map<String, Object> cache;
 	
-	@Schedule(minute = "1", hour = "*", persistent = false)
 	@PostConstruct
+	@Schedule(minute = "1", hour = "*", persistent = false)
 	public void initializer() {
 		cache = new HashMap<>();
 	}
 	
-	public boolean containsKey(String key) {
-		return cache.containsKey(key);
+	public boolean isInCache(String key) {
+		return cache.containsKey(key) && !isEmpty(cache.get(key));
 	}
 	
 	@Lock(LockType.READ)

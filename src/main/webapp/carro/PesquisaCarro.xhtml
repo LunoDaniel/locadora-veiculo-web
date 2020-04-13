@@ -5,10 +5,10 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Pesquisa de Carro</ui:define>
+    <ui:define name="titulo" value="#{cadastroCarroBean.getPageTitle('PESQUISA_CARRO')}" />
     
     <ui:define name="corpo">
-    	<h1>Pesquisa de carros</h1>
+    	<h1><p:outputLabel value="#{cadastroCarroBean.getPageTitle('PESQUISA_CARRO')}" /></h1>
     	
     	<h:form id="frmPesquisa">
     		<p:messages id="messages" autoUpdate="true" closable="true" />
@@ -54,9 +54,9 @@
 		    <p:confirmDialog id="confirmacaoExclusaoDialog" widgetVar="confirmacaoExclusao"
 	        		message="Tem certeza que deseja excluir o carro de placa #{pesquisaCarroBean.carroSelecionado.placa}?"  
 	                header="Exclusão de carro" severity="alert">
-	        	<p:button value="Não" onclick="confirmacaoExclusao.hide(); return false;" />
+	        	<p:button value="Não" onclick="PF('confirmacaoExclusao').hide(); return false;" />
 	        	<p:commandButton value="Sim" update=":frmPesquisa:carrosTable"
-	        			onclick="confirmacaoExclusao.hide()" action="#{pesquisaCarroBean.excluir}" />
+	        			onclick="PF('confirmacaoExclusao').hide()" action="#{pesquisaCarroBean.excluir}" />
 	    	</p:confirmDialog>
 	    	
 	    	<p:dialog id="mostraAcessoriosDialog" header="Acessórios" widgetVar="mostraAcessorios" modal="true">
