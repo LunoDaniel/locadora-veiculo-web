@@ -10,7 +10,7 @@ import com.locadoraveiculosweb.modelo.Carro;
 import com.locadoraveiculosweb.modelo.dtos.CarroDto;
 
 @Model
-@Mapper
+@Mapper(componentModel = "cdi", uses = { AcessorioMapper.class, ModeloCarroMapper.class })
 public interface CarroMapper {
 	
 	Carro toCarro(CarroDto dto);
@@ -18,5 +18,5 @@ public interface CarroMapper {
 	
 	List<Carro> toCarro(List<CarroDto> dto);
 	List<CarroDto> toCarroDto(List<Carro> entity);
-
+	
 }

@@ -1,5 +1,7 @@
 package com.locadoraveiculosweb.controller;
 
+import static com.locadoraveiculosweb.constants.ServiceConstants.CARRO;
+
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -21,7 +23,7 @@ import lombok.Setter;
 
 @Named
 @ViewScoped
-public class CadastroCarroBean extends BaseController<CarroDto>{
+public class CadastroCarroBean extends BaseBeanController<CarroDto>{
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
@@ -67,10 +69,17 @@ public class CadastroCarroBean extends BaseController<CarroDto>{
 	}
 
 	@Override
-	protected String getSuccessMessage(CarroDto object) {
-		return null;
+	protected String getNameMessage() {
+		return CARRO;
 	}
-	
-	
 
+	@Override
+	protected String getViewObjectPropertyMsg() {
+		return carro.getChassi();
+	}
+
+	@Override
+	protected void setViewObject(CarroDto dto) {
+		setCarro(dto);
+	}
 }

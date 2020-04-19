@@ -16,15 +16,23 @@ import lombok.Data;
 public class BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long codigo;
-	
-	@Column(name="data_criacao")
+
+	@Column(name = "data_criacao")
 	Date dataCriacao;
-	
-	@Column(name="data_alteracao")
+
+	@Column(name = "data_alteracao")
 	Date dataAlteracao;
+
+	BaseEntity() {
+		Date now = new Date();
+
+		dataAlteracao = now;
+		dataCriacao = now;
+
+	}
 
 }

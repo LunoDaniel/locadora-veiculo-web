@@ -56,6 +56,10 @@
 		
 		<div id="conteudo">
 			<ui:insert name="corpo"/>
+			 <p:confirmDialog id="confirmacaoExclusaoDialog" widgetVar="confirmacaoExclusao"  global="true" severity="alert" icon="pi pi-exclamation-circle">
+	        	<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+	        	<p:commandButton value="Sim" update="frmPesquisa" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"   />
+	    	 </p:confirmDialog>
 		</div>
 	
 		<p:separator style="margin-top: 20px"/>

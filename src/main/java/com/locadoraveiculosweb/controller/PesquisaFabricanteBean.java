@@ -1,7 +1,6 @@
 package com.locadoraveiculosweb.controller;
 
-import static com.locadoraveiculosweb.constants.MessageConstants.ViewMessages.FABRICANTE_EXCLUIDO_COM_SUCESSO;
-import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
+import static com.locadoraveiculosweb.constants.ServiceConstants.FABRICANTE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ import lombok.Setter;
 
 @Named
 @ViewScoped
-public class PesquisaFabricanteBean  extends BaseController<FabricanteDto> {
+public class PesquisaFabricanteBean  extends BaseBeanController<FabricanteDto> {
 
 
 	private static final long serialVersionUID = 1L;
@@ -58,7 +57,17 @@ public class PesquisaFabricanteBean  extends BaseController<FabricanteDto> {
 	}
 
 	@Override
-	protected String getSuccessMessage(FabricanteDto object) {
-		return getMessage(FABRICANTE_EXCLUIDO_COM_SUCESSO.getDescription(), object.getNome());
+	protected String getNameMessage() {
+		return FABRICANTE;
+	}
+
+	@Override
+	protected String getViewObjectPropertyMsg() {
+		return fabricanteSelecionado.getNome();
+	}
+
+	@Override
+	protected void setViewObject(FabricanteDto dto) {
+		setFabricanteSelecionado(dto);
 	}
 }

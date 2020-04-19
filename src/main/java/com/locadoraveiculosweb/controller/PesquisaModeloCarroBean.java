@@ -1,7 +1,6 @@
 package com.locadoraveiculosweb.controller;
 
-import static com.locadoraveiculosweb.constants.MessageConstants.ViewMessages.MODELO_CARRO_EXCLUIDO_COM_SUCESSO;
-import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
+import static com.locadoraveiculosweb.constants.ServiceConstants.MODELO_CARRO;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ import lombok.Setter;
 
 @Named
 @ViewScoped
-public class PesquisaModeloCarroBean extends BaseController<ModeloCarroDto> {
+public class PesquisaModeloCarroBean extends BaseBeanController<ModeloCarroDto> {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -55,8 +54,17 @@ public class PesquisaModeloCarroBean extends BaseController<ModeloCarroDto> {
 	}
 
 	@Override
-	protected String getSuccessMessage(ModeloCarroDto object) {
-		return getMessage(MODELO_CARRO_EXCLUIDO_COM_SUCESSO.getDescription(), object.getDescricao());
+	protected String getNameMessage() {
+		return MODELO_CARRO;
 	}
-	
+
+	@Override
+	protected String getViewObjectPropertyMsg() {
+		return modeloCarroSelecionado.getDescricao();
+	}
+
+	@Override
+	protected void setViewObject(ModeloCarroDto dto) {
+		setModeloCarroSelecionado(dto);
+	}
 }

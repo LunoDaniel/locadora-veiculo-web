@@ -1,26 +1,36 @@
 package com.locadoraveiculosweb.constants;
 
+import static java.util.Arrays.stream;
+
+import com.locadoraveiculosweb.service.NegocioException;
+
 import lombok.Getter;
 
 public class MessageConstants {
 	
 	public enum ViewMessages {
+	
+		SALVO_COM_SUCESSO("{0}: {1} salvo com Sucesso!", "SALVAR", "SUCESSO"),
+		EXCLUIDO_COM_SUCESSO("{0}: {1} excluído com sucesso!", "EXCLUIR", "SUCESSO"),
 		
-		FABRICANTE_SALVO_COM_SUCESSO("Fabricante: {0} Salvo com Sucesso!"),
-		FABRICANTE_EXCLUIDO_COM_SUCESSO("Fabricante: {0} excluído com sucesso!"),
-		
-		ACESSORIO_SALVO_COM_SUCESSO("Acessório: {0} Salvo com sucesso!"),
-		ACESSORIO_EXCLUIDO_COM_SUCESSO("Acessório: {0} excluído com Sucesso!"),
-		
-		MODELO_CARRO_SALVO_COM_SUCESSO("Modelo do Carro: {0} Salvo com Sucesso!"),
-		MODELO_CARRO_EXCLUIDO_COM_SUCESSO("Modelo do Carro: {0} excluído com sucesso!"),
-		
-		CARRO_SALVO_COM_SUCESSO("Carro: {0} Salvo com Sucesso!"),
-		CARRO_EXCLUIDO_COM_SUCESSO("Carro: {0} excluído com sucesso!");
+		ERRO_AO_SALVAR("Erro ao salvar o {0}: {1}!", "SALVAR", "ERRO"),
+		ERRO_AO_EXCLUIR("Erro ao excluir o {0}: {1}!", "EXCLUIR", "ERRO");
 		
 		@Getter String description;
-		ViewMessages(String description) {
+		@Getter String msgFor;
+		@Getter String type;
+		
+		ViewMessages(String description, String msgFor, String type) {
 			this.description = description;
+			this.msgFor = msgFor;
+			this.type = type;
+		}
+		
+		public static String getMsgFor(String msgFor, String type) throws NegocioException {
+			return stream(ViewMessages.values())
+						.filter( vMgF -> msgFor.equals(vMgF.getMsgFor()) )
+						.filter( vMgT -> type.equals(vMgT.getType() ))
+					.findAny().get().getDescription();
 		}
 	}
 	
@@ -31,12 +41,7 @@ public class MessageConstants {
 		CHASSI_OBRIGATORIO("O Chassi é um campo Obrigatório!"),
 		MODELO_CARRO_OBRIGATORIO("O Modelo é um campo Obrigatório!"),
 		PLACA_OBRIGATORIO("A Placa é um campo Obrigatório!"),
-		COR_OBRIGATORIA("A Cor é um campo Obrigatório!"),
-		
-		ERRO_AO_EXCLUIR_O_FABRICANTE("Erro ao remover o Fabricante: {0}!"),
-		ERRO_AO_EXCLUIR_O_ACESSORIO("Erro ao remover o Acessório: {0}!"),
-		ERRO_AO_EXCLUIR_O_MODELO_CARRO("Erro ao remover o Modelo: {0}!"),
-		ERRO_AO_EXCLUIR_O_CARRO("Erro ao remover o Carro: {0}!");
+		COR_OBRIGATORIA("A Cor é um campo Obrigatório!");
 		
 		@Getter String description;
 		BusinessMessages(String description) {

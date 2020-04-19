@@ -1,7 +1,6 @@
 package com.locadoraveiculosweb.controller;
 
-import static com.locadoraveiculosweb.constants.MessageConstants.ViewMessages.ACESSORIO_SALVO_COM_SUCESSO;
-import static com.locadoraveiculosweb.util.messages.MessageUtils.getMessage;
+import static com.locadoraveiculosweb.constants.ServiceConstants.ACESSORIO;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -18,7 +17,7 @@ import lombok.Setter;
 
 @Named
 @ViewScoped
-public class CadastroAcessorioBean extends BaseController<AcessorioDto> {
+public class CadastroAcessorioBean extends BaseBeanController<AcessorioDto> {
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
@@ -49,8 +48,18 @@ public class CadastroAcessorioBean extends BaseController<AcessorioDto> {
 	}
 
 	@Override
-	protected String getSuccessMessage(AcessorioDto object) {
-		return getMessage(ACESSORIO_SALVO_COM_SUCESSO.getDescription(), object.getDescricao());
+	protected String getNameMessage() {
+		return ACESSORIO;
+	}
+
+	@Override
+	protected String getViewObjectPropertyMsg() {
+		return acessorio.getDescricao();
+	}
+
+	@Override
+	protected void setViewObject(AcessorioDto dto) {
+		setAcessorio(dto);
 	}
 	
 }

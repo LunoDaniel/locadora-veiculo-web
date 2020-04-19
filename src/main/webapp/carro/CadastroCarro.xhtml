@@ -39,16 +39,17 @@
 	    		</p:selectOneMenu>
 			    
 			    <p:outputLabel value="Placa" for="placa"/>
-			    <p:inputText id="placa" size="20" maxlength="20" value="#{cadastroCarroBean.carro.placa}"/>
+			    <p:inputMask  id="placa" size="20" maxlength="20" value="#{cadastroCarroBean.carro.placa}"  mask="***-****" />
 			    
 			    <p:outputLabel value="Chassi" for="chassi"/>
 			    <p:inputText id="chassi" size="20" maxlength="20" value="#{cadastroCarroBean.carro.chassi}"/>
 			    		
 			    <p:outputLabel value="Cor" for="cor"/>
 			    <p:inputText id="cor" size="20" maxlength="20" value="#{cadastroCarroBean.carro.cor}"/>
-			    		
+			    
 			    <p:outputLabel value="Valor diária" for="valorDiaria"/>
-			    <p:inputText id="valorDiaria" size="20" maxlength="20" value="#{cadastroCarroBean.carro.valorDiaria}"/>
+			    <p:inputNumber   id="valorDiaria" size="20" maxlength="20" value="#{cadastroCarroBean.carro.valorDiaria}" 
+			    	decimalSeparator="," thousandSeparator="."  decimalPlaces="2"/>
 			    
 			    <p:outputLabel value="Acessórios" for="acessorios"/>
 				<p:selectManyCheckbox id="acessorios" styleClass="many-checkbox" 

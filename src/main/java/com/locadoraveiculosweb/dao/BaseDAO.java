@@ -37,13 +37,14 @@ public abstract class BaseDAO<T extends BaseEntity> implements Serializable {
 
 	@Transactional
 	public void excluir(T o) throws NegocioException {
-		T object = em.find(getEntityClass(), o.getCodigo());
-
+		T object = null;
 		try {
+			object = em.find(getEntityClass(), o.getCodigo());
 			em.remove(object);
+			cache.removeValue(object, getCacheKey());
 			em.flush();
 		} catch (Exception e) {
-			throw new NegocioException(getErroMessage(object));
+			throw new NegocioException();
 		}
 	}
 
@@ -64,8 +65,6 @@ public abstract class BaseDAO<T extends BaseEntity> implements Serializable {
 	}
 
 	protected abstract Class<T> getEntityClass();
-
-	protected abstract String getErroMessage(T object);
 
 	protected abstract String queryForAll();
 

@@ -1,6 +1,6 @@
 package com.locadoraveiculosweb.controller;
 
-import static com.locadoraveiculosweb.constants.MessageConstants.ViewMessages.ACESSORIO_EXCLUIDO_COM_SUCESSO;
+import static com.locadoraveiculosweb.constants.ServiceConstants.ACESSORIO;
 
 import java.util.List;
 
@@ -13,14 +13,13 @@ import org.omnifaces.cdi.ViewScoped;
 import com.locadoraveiculosweb.modelo.dtos.AcessorioDto;
 import com.locadoraveiculosweb.service.AcessorioService;
 import com.locadoraveiculosweb.service.Service;
-import com.locadoraveiculosweb.util.messages.MessageUtils;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Named
 @ViewScoped
-public class PesquisaAcessorioBean extends BaseController<AcessorioDto> {
+public class PesquisaAcessorioBean extends BaseBeanController<AcessorioDto> {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -41,7 +40,7 @@ public class PesquisaAcessorioBean extends BaseController<AcessorioDto> {
 
 	@Override
 	protected void clean() {
-		acessorios.remove(acessorioSelecionado);		
+		acessorios.remove(getViewObject());
 	}
 
 	@Override
@@ -50,13 +49,22 @@ public class PesquisaAcessorioBean extends BaseController<AcessorioDto> {
 	}
 
 	@Override
+	protected String getNameMessage() {
+		return ACESSORIO;
+	}
+
+	@Override
 	protected AcessorioDto getViewObject() {
 		return acessorioSelecionado;
 	}
 
 	@Override
-	protected String getSuccessMessage(AcessorioDto object) {
-		return MessageUtils.getMessage(ACESSORIO_EXCLUIDO_COM_SUCESSO.getDescription(), object);
+	protected String getViewObjectPropertyMsg() {
+		return acessorioSelecionado.getDescricao();
 	}
-	
+
+	@Override
+	protected void setViewObject(AcessorioDto dto) {
+		setAcessorioSelecionado(dto);
+	}
 }

@@ -1,5 +1,7 @@
 package com.locadoraveiculosweb.mappers;
 
+import static org.mapstruct.CollectionMappingStrategy.ACCESSOR_ONLY;
+
 import java.util.List;
 
 import javax.enterprise.inject.Model;
@@ -10,7 +12,7 @@ import com.locadoraveiculosweb.modelo.ModeloCarro;
 import com.locadoraveiculosweb.modelo.dtos.ModeloCarroDto;
 
 @Model
-@Mapper
+@Mapper(componentModel = "cdi", uses = FabricateMapper.class, collectionMappingStrategy = ACCESSOR_ONLY)
 public interface ModeloCarroMapper {
 	
 	ModeloCarro toModeloCarro(ModeloCarroDto dto);
