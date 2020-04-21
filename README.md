@@ -10,7 +10,7 @@ Este é um sitema simples desenvolvido como estudo para aprimorar conhecimentos 
  - [JSF - 2](http://www.javaserverfaces.org/)
  - [PrimeFaces - 8](https://www.primefaces.org/primefaces-8-0-rc1-released/)
  - [Hibernate - 5.4](https://hibernate.org/)
- - [Servidor de Apicação - Tomcat v9.0](http://tomcat.apache.org/download-90.cgi)
+ - [Servidor de Apicação - Wildfly 17.0](https://wildfly.org/)
  
 ##### Bibliotecas adicionadas:
 
