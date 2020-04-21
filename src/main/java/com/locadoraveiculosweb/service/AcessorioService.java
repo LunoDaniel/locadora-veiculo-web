@@ -51,5 +51,4 @@ public class AcessorioService implements Service<AcessorioDto> {
 		Acessorio acessorio = mapper.toAcessorio(viewObject);
 		acessorioDao.excluir(acessorio);
 	}
-
 }

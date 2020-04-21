@@ -25,7 +25,7 @@ public class CarroDto implements Serializable {
 	private String cor;
 	
 	private List<AluguelDto> alugueis;
-	private List<AcessorioDto> acessorios;
+	private AcessorioDto[] acessorios;
 	private ModeloCarroDto modelo;
 	
 }

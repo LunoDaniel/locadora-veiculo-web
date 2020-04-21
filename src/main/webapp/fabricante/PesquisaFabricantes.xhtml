@@ -20,35 +20,30 @@
     				<p:commandButton value="Novo" id="botaoNovo" action="/fabricante/CadastroFabricante.xhtml"/>
     			</p:toolbarGroup>
     		</p:toolbar>
-    	
-	    	<p:dataTable id="fabricantesTable" value="#{pesquisaFabricanteBean.fabricantes}" var="fabricante"
-                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros" 
-		    		style="margin-top: 20px" emptyMessage="Nenhum fabricante encontrado." rows="10"
-		    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
-		    		<p:column headerText="Código" style="text-align: center; width: 100px">
-		    			<h:outputText value="#{fabricante.codigo}" />
-		    		</p:column>
-		    		<p:column headerText="Nome">
-		    			<h:outputText value="#{fabricante.nome}" />
-		    		</p:column>
-		    		<p:column style="width: 100px; text-align: center">
-		    			<p:button icon="pi pi-pencil" outcome="CadastroFabricante"  title="Editar">
-		    				<f:param name="fabricante" value="#{fabricante.codigo}"/>
-		    			</p:button>
-		    			<p:commandButton icon="pi pi-trash" title="Excluir" onclick="PF('confirmacaoExclusao').show();"
-								process="@this" update=":frmPesquisa:messages">
-							<f:setPropertyActionListener target="#{pesquisaFabricanteBean.fabricanteSelecionado}" value="#{fabricante}" />
-						</p:commandButton>
-		    		</p:column>
-		    </p:dataTable>
-		    
-		    <p:confirmDialog id="confirmacaoExclusaoDialog" widgetVar="confirmacaoExclusao"  global="true"
-	        		message="Tem certeza que deseja excluir o fabricante #{pesquisaFabricanteBean.fabricanteSelecionado.nome}?"  
-	                header="Exclusão de fabricante" severity="alert" icon="exclamation-circle">
-	        	<p:button value="Não" onclick="PF('confirmacaoExclusao').hide(); return false;" />
-	        	<p:commandButton value="Sim" update="frmPesquisa"
-	        			onclick="PF('confirmacaoExclusao').hide()" action="#{pesquisaFabricanteBean.excluir}" />
-	    	</p:confirmDialog>
+    		<p:panel>
+		    	<p:dataTable id="fabricantesTable" value="#{pesquisaFabricanteBean.fabricantes}" var="fabricante"
+	                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros" 
+			    		style="margin-top: 20px" emptyMessage="Nenhum fabricante encontrado." rows="10"
+			    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+			    		<p:column headerText="Código" style="text-align: center; width: 100px">
+			    			<h:outputText value="#{fabricante.codigo}" />
+			    		</p:column>
+			    		<p:column headerText="Nome">
+			    			<h:outputText value="#{fabricante.nome}" />
+			    		</p:column>
+			    		<p:column style="width: 100px; text-align: center">
+			    			<p:button icon="pi pi-pencil" outcome="CadastroFabricante"  title="Editar">
+			    				<f:param name="fabricante" value="#{fabricante.codigo}"/>
+			    			</p:button>
+			    			<p:commandButton id="acaoExcluir" icon="pi pi-trash" title="Excluir" process="@this" update="frmPesquisa" 
+			    				action="#{pesquisaFabricanteBean.excluir(fabricante)}">
+								<p:confirm header="Exclusão de Fanbricante" 
+			    			 				   message="Tem certeza que deseja excluir o fabricante: #{fabricante.nome}? " 
+			    			 				   icon="pi pi-exclamation-circle" />
+							</p:commandButton>
+			    		</p:column>
+			    </p:dataTable>
+			</p:panel>
 	    </h:form>
     </ui:define>
 </ui:composition>

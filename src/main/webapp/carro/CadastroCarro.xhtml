@@ -23,41 +23,42 @@
 	    			<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroCarroBean.salvar}" update="frmCadastro"/>
 	    		</p:toolbarGroup>
 	    		<p:toolbarGroup align="right">
-					<p:commandButton value="Pesquisa" action="/carro/PesquisaCarro.xhtml" />
+					<p:button value="Pesquisa" outcome="PesquisaCarro" />
 				</p:toolbarGroup>
 	    	</p:toolbar>
-	    	
-			<p:panelGrid columns="2" id="painel" style="width: 100%" columnClasses="rotulo, campo">
-				<p:outputLabel value="Código" for="codigo"/>
-			    <p:inputText id="codigo" size="20" maxlength="20" value="#{cadastroCarroBean.carro.codigo}" readonly="true"/>
-			    
-			    <p:outputLabel value="Modelo Carro" for="modeloCarro"/>
-	    		<p:selectOneMenu id="modeloCarro" value="#{cadastroCarroBean.carro.modelo}">
-	    			<f:selectItem itemLabel="Selecione o modelo" />
-	    			<f:selectItems value="#{cadastroCarroBean.modelosCarros}" var="modelosCarros"
-						itemLabel="#{modelosCarros.descricao}" itemValue="#{modelosCarros}"/>
-	    		</p:selectOneMenu>
-			    
-			    <p:outputLabel value="Placa" for="placa"/>
-			    <p:inputMask  id="placa" size="20" maxlength="20" value="#{cadastroCarroBean.carro.placa}"  mask="***-****" />
-			    
-			    <p:outputLabel value="Chassi" for="chassi"/>
-			    <p:inputText id="chassi" size="20" maxlength="20" value="#{cadastroCarroBean.carro.chassi}"/>
-			    		
-			    <p:outputLabel value="Cor" for="cor"/>
-			    <p:inputText id="cor" size="20" maxlength="20" value="#{cadastroCarroBean.carro.cor}"/>
-			    
-			    <p:outputLabel value="Valor diária" for="valorDiaria"/>
-			    <p:inputNumber   id="valorDiaria" size="20" maxlength="20" value="#{cadastroCarroBean.carro.valorDiaria}" 
-			    	decimalSeparator="," thousandSeparator="."  decimalPlaces="2"/>
-			    
-			    <p:outputLabel value="Acessórios" for="acessorios"/>
-				<p:selectManyCheckbox id="acessorios" styleClass="many-checkbox" 
-						value="#{cadastroCarroBean.carro.acessorios}" converter="#{acessorioConverter}">
-					<f:selectItems value="#{cadastroCarroBean.acessorios}" var="acessorio" 
-						itemLabel="#{acessorio.descricao}" itemValue="#{acessorio}" />
-				</p:selectManyCheckbox>			    
-			</p:panelGrid>
+	    	<p:panel>
+				<p:panelGrid columns="2" id="painel" style="width: 100%" columnClasses="rotulo, campo">
+					<p:outputLabel value="Código" for="codigo"/>
+				    <p:inputText id="codigo" size="20" maxlength="20" value="#{cadastroCarroBean.carro.codigo}" readonly="true"/>
+				    
+				    <p:outputLabel value="Modelo Carro" for="modeloCarro"/>
+		    		<p:selectOneMenu id="modeloCarro" value="#{cadastroCarroBean.carro.modelo}">
+		    			<f:selectItem itemLabel="Selecione o modelo" />
+		    			<f:selectItems value="#{cadastroCarroBean.modelosCarros}" var="modelosCarros"
+							itemLabel="#{modelosCarros.descricao}" itemValue="#{modelosCarros}"/>
+		    		</p:selectOneMenu>
+				    
+				    <p:outputLabel value="Placa" for="placa"/>
+				    <p:inputMask  id="placa" size="20" maxlength="20" value="#{cadastroCarroBean.carro.placa}"  mask="***-****" required="true"/>
+				    
+				    <p:outputLabel value="Chassi" for="chassi"/>
+				    <p:inputText id="chassi" size="20" maxlength="20" value="#{cadastroCarroBean.carro.chassi}" required = "true"/>
+				    		
+				    <p:outputLabel value="Cor" for="cor"/>
+				    <p:inputText id="cor" size="20" maxlength="20" value="#{cadastroCarroBean.carro.cor}" required = "true"/>
+				    
+				    <p:outputLabel value="Valor diária" for="valorDiaria"/>
+				    <p:inputNumber   id="valorDiaria" size="20" maxlength="20" value="#{cadastroCarroBean.carro.valorDiaria}"
+				     	required = "true" decimalSeparator="," thousandSeparator="."  decimalPlaces="2"/>
+				    
+				    <p:outputLabel value="Acessórios" for="acessorios"/>
+					<p:selectCheckboxMenu id="acessorios" filter="true" multiple="true" filterMatchMode="startsWith"
+							value="#{cadastroCarroBean.carro.acessorios}" converter="#{acessorioConverter}">
+						<f:selectItems value="#{cadastroCarroBean.acessorios}" var="acessorio" 
+							itemLabel="#{acessorio.descricao}" itemValue="#{acessorio}" />
+					</p:selectCheckboxMenu>			    
+				</p:panelGrid>
+			</p:panel>
     	</h:form>
     </ui:define>
 </ui:composition>

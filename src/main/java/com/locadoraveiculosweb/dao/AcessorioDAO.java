@@ -19,5 +19,4 @@ public class AcessorioDAO extends BaseDAO<Acessorio> {
 	protected String getCacheKey() {
 		return "acessorioCache";
 	}
-
 }

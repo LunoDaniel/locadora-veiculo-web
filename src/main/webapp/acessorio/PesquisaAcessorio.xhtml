@@ -9,7 +9,7 @@
     
     <ui:define name="corpo">
     	<h1> 
-    		<h:outputText value="#{pesquisaAcessorioBean.getPageTitle('PESQUISA_ACESSORIO')}" />
+    		<p:outputLabel value="#{pesquisaAcessorioBean.getPageTitle('PESQUISA_ACESSORIO')}" />
     	</h1>
     	
     	<h:form id="frmPesquisa">
@@ -20,30 +20,30 @@
     				<p:commandButton value="Novo" id="botaoNovo" action="/acessorio/CadastroAcessorio.xhtml"/>
     			</p:toolbarGroup>
     		</p:toolbar>
-    	
-	    	<p:dataTable id="acessoriosTable" value="#{pesquisaAcessorioBean.acessorios}" var="acessorio"
-		    		style="margin-top: 20px" emptyMessage="Nenhum acessorio encontrado." rows="20"
-		    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
-		    		<p:column headerText="Código" style="text-align: center; width: 100px">
-		    			<h:outputText value="#{acessorio.codigo}" />
-		    		</p:column>
-		    		<p:column headerText="Descrição">
-		    			<h:outputText value="#{acessorio.descricao}" />
-		    		</p:column>
-		    		<p:column style="width: 100px; text-align: center">
-		    			<p:button icon="pi pi-pencil" outcome="CadastroAcessorio" title="Editar">
-		    				<f:param name="acessorio" value="#{acessorio.codigo}"/>
-		    			</p:button>
-		    			<p:commandButton id="acaoExcluir" icon="pi pi-trash" title="Excluir"  process="@this" update="frmPesquisa" 
-		    					action="#{pesquisaAcessorioBean.excluir(acessorio)}">
-		    			 		<p:confirm header="Exclusão de Acessório" 
-		    			 				   message="Tem certeza que deseja excluir o acessório: #{acessorio.descricao}?" 
-		    			 				   icon="pi pi-exclamation-triangle" />
-						</p:commandButton>
-		    		</p:column>
-		    		
-		    </p:dataTable>
-		
+    		<p:panel>
+		    	<p:dataTable id="acessoriosTable" value="#{pesquisaAcessorioBean.acessorios}" var="acessorio"
+			    		style="margin-top: 20px" emptyMessage="Nenhum acessorio encontrado." rows="20"
+			    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+			    		<p:column headerText="Código" style="text-align: center; width: 100px">
+			    			<h:outputText value="#{acessorio.codigo}" />
+			    		</p:column>
+			    		<p:column headerText="Descrição">
+			    			<h:outputText value="#{acessorio.descricao}" />
+			    		</p:column>
+			    		<p:column style="width: 100px; text-align: center">
+			    			<p:button icon="pi pi-pencil" outcome="CadastroAcessorio" title="Editar">
+			    				<f:param name="acessorio" value="#{acessorio.codigo}"/>
+			    			</p:button>
+			    			<p:commandButton id="acaoExcluir" icon="pi pi-trash" title="Excluir"  process="@this" update="frmPesquisa" 
+			    					action="#{pesquisaAcessorioBean.excluir(acessorio)}">
+			    			 		<p:confirm header="Exclusão de Acessório" 
+			    			 				   message="Tem certeza que deseja excluir o acessório: #{acessorio.descricao}?" 
+			    			 				   icon="pi pi-exclamation-circle" />
+							</p:commandButton>
+			    		</p:column>
+			    		
+			    </p:dataTable>
+			</p:panel>
 	    </h:form>
     </ui:define>
 </ui:composition>

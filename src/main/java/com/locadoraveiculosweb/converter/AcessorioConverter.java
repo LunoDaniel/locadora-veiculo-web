@@ -2,6 +2,7 @@ package com.locadoraveiculosweb.converter;
 
 import static java.util.Optional.ofNullable;
 
+import javax.enterprise.inject.Model;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
@@ -12,7 +13,8 @@ import com.locadoraveiculosweb.service.Service;
 import lombok.Getter;
 
 @Getter
-@FacesConverter(forClass = AcessorioDto.class)
+@Model
+@FacesConverter(value = "acessorioConverter", forClass = AcessorioDto.class)
 public class AcessorioConverter extends BeanConverter<AcessorioDto>  {
 
 	@Inject
@@ -27,5 +29,4 @@ public class AcessorioConverter extends BeanConverter<AcessorioDto>  {
 	protected Service<AcessorioDto> getService() {
 		return acessorioService;
 	}
-
 }

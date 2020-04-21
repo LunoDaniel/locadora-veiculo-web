@@ -18,53 +18,49 @@
     				<p:commandButton value="Novo" id="botaoNovo" action="/carro/CadastroCarro.xhtml"/>
     			</p:toolbarGroup>
     		</p:toolbar>
-    	
-	    	<p:dataTable id="carrosTable" value="#{pesquisaCarroBean.carros}" var="carro"
-		    		style="margin-top: 20px" emptyMessage="Nenhum carro encontrado." rows="20"
-		    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
-		    		<p:column headerText="Código" style="text-align: center; width: 100px">
-		    			<h:outputText value="#{carro.codigo}" />
-		    		</p:column>
-		    		<p:column headerText="Placa">
-		    			<h:outputText value="#{carro.placa}" />
-		    		</p:column>
-		    		<p:column headerText="Cor">
-		    			<h:outputText value="#{carro.cor}" />
-		    		</p:column>
-		    		<p:column headerText="Valor diária">
-		    			<h:outputText value="#{carro.valorDiaria}" />
-		    		</p:column>
-		    		<p:column headerText="Acessórios" style="width: 100px; text-align: center">
-		    			<p:commandButton icon="ui-icon-extlink" title="Acessórios" action="#{pesquisaCarroBean.buscarCarroComAcessorios}"
-		    					process="@this" oncomplete="mostraAcessorios.show()" update=":frmPesquisa:mostraAcessoriosDialog">
-		    				<f:setPropertyActionListener target="#{pesquisaCarroBean.carroSelecionado}" value="#{carro}" />
-		    			</p:commandButton>
-		    		</p:column>
-		    		<p:column style="width: 100px; text-align: center">
-		    			<p:button outcome="CadastroCarro" icon="ui-icon-pencil" title="Editar">
-		    				<f:param name="carro" value="#{carro.codigo}"/>
-		    			</p:button>
-		    			<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmacaoExclusao.show()"
-								process="@this" update=":frmPesquisa:confirmacaoExclusaoDialog">
-							<f:setPropertyActionListener target="#{pesquisaCarroBean.carroSelecionado}" value="#{carro}" />
-						</p:commandButton>
-		    		</p:column>
-		    </p:dataTable>
-		   
-		    <p:confirmDialog id="confirmacaoExclusaoDialog" widgetVar="confirmacaoExclusao"
-	        		message="Tem certeza que deseja excluir o carro de placa #{pesquisaCarroBean.carroSelecionado.placa}?"  
-	                header="Exclusão de carro" severity="alert">
-	        	<p:button value="Não" onclick="PF('confirmacaoExclusao').hide(); return false;" />
-	        	<p:commandButton value="Sim" update=":frmPesquisa:carrosTable"
-	        			onclick="PF('confirmacaoExclusao').hide()" action="#{pesquisaCarroBean.excluir}" />
-	    	</p:confirmDialog>
-	    	
-	    	<p:dialog id="mostraAcessoriosDialog" header="Acessórios" widgetVar="mostraAcessorios" modal="true">
-    			<p:dataList value="#{pesquisaCarroBean.carroSelecionado.acessorios}" var="acessorio" itemType="disc"
-    					rendered="#{not empty pesquisaCarroBean.carroSelecionado.acessorios}">
-    				#{acessorio.descricao}
+    		<p:panel>
+		    	<p:dataTable id="carrosTable" value="#{pesquisaCarroBean.carros}" var="carro"
+			    		style="margin-top: 20px" emptyMessage="Nenhum carro encontrado." rows="20"
+			    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+			    		
+			    		<p:column headerText="Código" style="text-align: left; width: 100px">
+			    			<h:outputText value="#{carro.codigo}" />
+			    		</p:column>
+			    		<p:column headerText="Placa" style="text-align: left;">
+			    			<h:outputText value="#{carro.placa}" />
+			    		</p:column>
+			    		<p:column headerText="Cor" style="text-align: left;">
+			    			<h:outputText value="#{carro.cor}" />
+			    		</p:column>
+			    		<p:column headerText="Valor diária (R$)" style="text-align: left;">
+			    			<h:outputText value="#{carro.valorDiaria}" >
+			    				<f:convertNumber type="currency"  pattern="#,##0.00" locale="pt_BR"/>
+			    			</h:outputText>
+			    		</p:column>
+			    		<p:column headerText="Acessórios" style="width: 100px; text-align: center">
+			    			<p:commandButton icon="pi pi-external-link" title="Acessórios" 
+			    					disabled="#{pesquisaCarroBean.isAcessoriosEmpty(carro)}"
+			    					action="#{pesquisaCarroBean.setAcessoriosList(carro)}" update="frmPesquisa:acessoriosDialog"
+			    					process="@this" oncomplete="PF('mostraAcessorios').show();">
+			    			</p:commandButton>
+			    		</p:column>
+			    		<p:column style="width: 100px; text-align: center">
+			    			<p:button outcome="CadastroCarro" icon="pi pi-pencil" title="Editar">
+			    				<f:param name="carro" value="#{carro.codigo}"/>
+			    			</p:button>
+			    			<p:commandButton icon="pi pi-trash" title="Excluir" action="#{pesquisaCarroBean.excluir(carro)}"
+									process="@this" update=":frmPesquisa">
+								<p:confirm message="Tem certeza que deseja excluir o carro de placa: #{carro.placa}?"  
+		                				   header="Exclusão de carro" 
+		                				   icon="pi pi-exclamation-circle"/>
+							</p:commandButton>
+			    		</p:column>
+			    </p:dataTable>
+		 	</p:panel>
+	    	<p:dialog id="acessoriosDialog" header="Acessórios" widgetVar="mostraAcessorios" modal="true">
+    			<p:dataList value="#{pesquisaCarroBean.acessoriosList}" var="acessorio" itemType="disc" emptyMessage="Nenhum Acessório encontrado">
+    				<p:outputLabel value="#{acessorio.descricao}" />
     			</p:dataList>
-    			<h:outputText value="Nenhum acessório" rendered="#{empty pesquisaCarroBean.carroSelecionado.acessorios}"/>
 			</p:dialog>
 	    	
 	    </h:form>

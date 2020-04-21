@@ -21,7 +21,7 @@ public abstract class BeanConverter<T> implements Converter<T> {
 	public T getAsObject(FacesContext context, UIComponent component, String value) {
 		if(StringUtils.isBlank(value)) return null;
 		return getService().buscarPeloCodigo(value);
-	}
+	}	
 	
 	public String getAsString(FacesContext context, UIComponent component, T value) {
 		return (isNotEmpty(value)) ? getValue(value) : EMPTY;

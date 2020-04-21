@@ -13,13 +13,15 @@ import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
+import com.locadoraveiculosweb.modelo.BaseEntity;
+
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
 @Startup
 @Singleton
 @Log4j
-public class Cache<T> {
+public class Cache<T extends BaseEntity> {
 	
 	@Getter
 	Map<String, Object> cache;
@@ -50,15 +52,38 @@ public class Cache<T> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void removeValue(Object object, String key) {
+	public void removeValue(T object, String key) {
 		if(isInCache(key)) {
 			
 			List<T> list = (List<T>) cache.get(key);
 			
-			if(list.contains(object)) {
-				list.remove(object);
+			if(removeIf(object, list)) {
+				putValue(key, list);
 			}
 		}
+	}
+
+	
+	@SuppressWarnings("unchecked")
+	public void updateValue(T object, String key) {
+		if(isInCache(key)) {
+			
+			List<T> list = (List<T>) cache.get(key);
+			
+			if(removeIf(object, list)) {
+				list.add(object);
+			} else {				
+				list.add(object);
+			}
+		}
+	}
+	
+	public void cleanCache(String cacheKey) {
+		putValue(cacheKey, null);
+	}
+	
+	private boolean removeIf(T object, List<T> list) {
+		return list.removeIf(o -> o.getCodigo().equals(object.getCodigo()));
 	}
 	
 }

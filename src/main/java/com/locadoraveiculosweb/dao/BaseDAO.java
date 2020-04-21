@@ -1,6 +1,9 @@
 package com.locadoraveiculosweb.dao;
 
+import static org.apache.commons.lang3.ObjectUtils.isEmpty;
+
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,16 +26,15 @@ public abstract class BaseDAO<T extends BaseEntity> implements Serializable {
 	@Inject
 	Cache<T> cache;
 	
-	@SuppressWarnings("unchecked")
 	public T salvar(T o) {
-		T saved = em.merge(o);
 		
-		if(cache.isInCache(getCacheKey())) {
-			List<T> list = (List<T>) cache.getValue(getCacheKey());
-			list.add(saved);
+		if(!isEmpty(o.getCodigo())) {
+			o.setDataAlteracao(new Date());
 		}
 		
-		return saved;
+		o = em.merge(o);
+		cache.updateValue(o, getCacheKey());
+		return o;
 	}
 
 	@Transactional

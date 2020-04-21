@@ -38,19 +38,14 @@
 		    		<p:button outcome="CadastroModeloCarro" icon="pi pi-pencil" title="Editar">
 		    			<f:param name="modeloCarro" value="#{modeloCarro.codigo}"/>
 		    		</p:button>
-		    		<p:commandButton icon="pi pi-trash" title="Excluir" onclick="PF('confirmacaoExclusao').show();"
-							process="@this" update=":frmPesquisa:messages">
-						<f:setPropertyActionListener target="#{pesquisaModeloCarroBean.modeloCarroSelecionado}" value="#{modeloCarro}" />
+		    		<p:commandButton icon="pi pi-trash" title="Excluir" action="#{pesquisaModeloCarroBean.excluir(modeloCarro)}"
+							process="@this" update="frmPesquisa">
+						<p:confirm header="Exclusão de Modelo de Carro"
+								   message="Tem certeza que deseja excluir o modelo: #{modeloCarro.descricao}?"
+								   icon="pi pi-exclamation-circle" />
 					</p:commandButton>
 		    	</p:column>
 		   	</p:dataTable>
-		   	<p:confirmDialog id="confirmacaoExclusaoDialog" widgetVar="confirmacaoExclusao"
-	        		message="Tem certeza que deseja excluir o modelo #{pesquisaModeloCarroBean.modeloCarroSelecionado.descricao}?"  
-	                header="Exclusão de modelo de carro" severity="alert">
-	        	<p:button value="Não" onclick="PF('confirmacaoExclusao').hide(); return false;" />
-	        	<p:commandButton value="Sim" update=":frmPesquisa:modelosCarroTable"
-	        			onclick="PF('confirmacaoExclusao').hide()" action="#{pesquisaModelosCarroBean.excluir}" />
-	    	</p:confirmDialog>
     	</h:form>
     </ui:define>
 </ui:composition>
