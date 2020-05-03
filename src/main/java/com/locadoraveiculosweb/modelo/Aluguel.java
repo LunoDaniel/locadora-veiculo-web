@@ -1,6 +1,5 @@
 package com.locadoraveiculosweb.modelo;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.CascadeType;
@@ -9,13 +8,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
-public class Aluguel implements Serializable {
+@NamedQueries(value = {
+		@NamedQuery(name = "Aluguel.findAll", query = "select a from Aluguel a")
+})
+public class Aluguel extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -26,6 +32,7 @@ public class Aluguel implements Serializable {
 	
 	@ManyToOne
 	private Carro carro;
+	
 	@OneToOne(cascade=CascadeType.ALL)
 	private ApoliceSeguro apoliceSeguro;
 	

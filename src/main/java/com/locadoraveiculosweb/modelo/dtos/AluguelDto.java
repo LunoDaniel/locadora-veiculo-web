@@ -1,5 +1,9 @@
 package com.locadoraveiculosweb.modelo.dtos;
 
+import static java.math.BigDecimal.ZERO;
+import static java.math.BigDecimal.valueOf;
+import static java.util.Optional.ofNullable;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -17,9 +21,25 @@ public class AluguelDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long codigo;
+	
 	private BigDecimal valorTotal;
+	
 	private CarroDto carro;
 	private ApoliceSeguroDto apoliceSeguro;
 	
+	private Integer numeroDiarias;
 	
+	private BigDecimal calculateValorTotal;
+	
+	public BigDecimal getCalculateValorTotal() {
+		
+		carro = ofNullable(carro).orElse(new CarroDto());
+		valorTotal = ofNullable(valorTotal).orElse(ZERO);
+		numeroDiarias = ofNullable(numeroDiarias).orElse(0);
+		
+		BigDecimal partial = (ofNullable(carro.getValorDiaria()).orElse(ZERO).multiply(valueOf(numeroDiarias)));
+		calculateValorTotal = valorTotal.add(partial);
+		return calculateValorTotal;
+	}
+
 }

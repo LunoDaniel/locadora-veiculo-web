@@ -9,8 +9,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import com.locadoraveiculosweb.exception.NegocioException;
 import com.locadoraveiculosweb.modelo.BaseEntity;
-import com.locadoraveiculosweb.service.NegocioException;
 import com.locadoraveiculosweb.util.jpa.Cache;
 import com.locadoraveiculosweb.util.jpa.Transactional;
 

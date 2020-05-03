@@ -1,6 +1,7 @@
 package com.locadoraveiculosweb.controller;
 
-import java.io.Serializable;
+import static com.locadoraveiculosweb.constants.ServiceConstants.ALUGUEL;
+
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,61 +10,70 @@ import javax.inject.Named;
 
 import org.omnifaces.cdi.ViewScoped;
 
-import com.locadoraveiculosweb.dao.CarroDAO;
-import com.locadoraveiculosweb.modelo.Aluguel;
-import com.locadoraveiculosweb.modelo.ApoliceSeguro;
-import com.locadoraveiculosweb.modelo.Carro;
-import com.locadoraveiculosweb.service.CadastroAluguelService;
-import com.locadoraveiculosweb.service.NegocioException;
-import com.locadoraveiculosweb.util.jsf.FacesUtil;
+import com.locadoraveiculosweb.modelo.dtos.AluguelDto;
+import com.locadoraveiculosweb.modelo.dtos.ApoliceSeguroDto;
+import com.locadoraveiculosweb.modelo.dtos.CarroDto;
+import com.locadoraveiculosweb.service.AluguelService;
+import com.locadoraveiculosweb.service.CarroService;
+import com.locadoraveiculosweb.service.Service;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Named
 @ViewScoped
-public class NovoAluguelBean implements Serializable {
+public class NovoAluguelBean extends BaseBeanController<AluguelDto> {
 	private static final long serialVersionUID = 1L;
-	
-	@Inject
-	private CadastroAluguelService cadastroAluguelService;
-	@Inject
-	private CarroDAO carroDao;
-	
-	private Aluguel aluguel;
-	private List<Carro> carros;
 
+	@Inject
+	private AluguelService cadastroAluguelService;
+
+	@Inject
+	private CarroService carroService;
+
+	@Getter
+	@Setter
+	private AluguelDto aluguel;
+
+	@Getter
+	@Setter
+	private List<CarroDto> carros;
+
+	@Override
 	@PostConstruct
-	public void inicializar(){
-		this.limpar();
-		this.carros = this.carroDao.buscarTodos();
-	}
-	
-	public void limpar(){
-		aluguel = new Aluguel();
-		this.aluguel.setApoliceSeguro(new ApoliceSeguro());
-	}
-	
-	public void salvar(){
-		try {
-			this.cadastroAluguelService.salvar(aluguel);
-			FacesUtil.addSuccessMessage("Aluguel Cadastrado com Sucesso!");
-		} catch (NegocioException e) {
-			FacesUtil.addErrorMessage("Não foi Possível Cadastrar o Aluguel!");
-		}
-		this.limpar();
+	public void initializer() {
+		clean();
+		this.carros = this.carroService.buscarTodos();
 	}
 
-	public Aluguel getAluguel() {
+	public void clean() {
+		aluguel = new AluguelDto();
+		this.aluguel.setApoliceSeguro(new ApoliceSeguroDto());
+	}
+
+	@Override
+	protected Service<AluguelDto> getService() {
+		return cadastroAluguelService;
+	}
+
+	@Override
+	protected AluguelDto getViewObject() {
 		return aluguel;
 	}
 
-	public void setAluguel(Aluguel aluguel) {
-		this.aluguel = aluguel;
+	@Override
+	protected void setViewObject(AluguelDto dto) {
+		aluguel = dto;
 	}
 
-	public List<Carro> getCarros() {
-		return carros;
+	@Override
+	protected String getNameMessage() {
+		return ALUGUEL;
 	}
 
-	public void setCarros(List<Carro> carros) {
-		this.carros = carros;
+	@Override
+	protected String getViewObjectPropertyMsg() {
+		return aluguel.getCarro().getChassi();
 	}
+
 }

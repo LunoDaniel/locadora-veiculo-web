@@ -2,7 +2,7 @@ package com.locadoraveiculosweb.constants;
 
 import static java.util.Arrays.stream;
 
-import com.locadoraveiculosweb.service.NegocioException;
+import com.locadoraveiculosweb.exception.NegocioException;
 
 import lombok.Getter;
 

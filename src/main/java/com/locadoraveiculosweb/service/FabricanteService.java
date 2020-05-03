@@ -11,6 +11,7 @@ import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 
 import com.locadoraveiculosweb.dao.FabricanteDAO;
+import com.locadoraveiculosweb.exception.NegocioException;
 import com.locadoraveiculosweb.mappers.FabricateMapper;
 import com.locadoraveiculosweb.modelo.Fabricante;
 import com.locadoraveiculosweb.modelo.dtos.FabricanteDto;

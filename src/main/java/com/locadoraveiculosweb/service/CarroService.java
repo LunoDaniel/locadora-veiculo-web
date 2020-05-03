@@ -13,6 +13,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.locadoraveiculosweb.dao.CarroDAO;
+import com.locadoraveiculosweb.exception.NegocioException;
 import com.locadoraveiculosweb.mappers.CarroMapper;
 import com.locadoraveiculosweb.modelo.Carro;
 import com.locadoraveiculosweb.modelo.dtos.CarroDto;

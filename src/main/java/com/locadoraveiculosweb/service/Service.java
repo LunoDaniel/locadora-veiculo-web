@@ -3,6 +3,8 @@ package com.locadoraveiculosweb.service;
 import java.io.Serializable;
 import java.util.List;
 
+import com.locadoraveiculosweb.exception.NegocioException;
+
 public interface Service<T> extends Serializable {
 	
 	T salvar(T object) throws NegocioException;

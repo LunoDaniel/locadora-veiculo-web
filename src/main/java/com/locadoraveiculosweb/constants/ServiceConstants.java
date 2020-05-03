@@ -14,6 +14,6 @@ public class ServiceConstants {
 	public static final String MODELO_CARRO = "Modelo Carro";
 	public static final String ACESSORIO = "Acessório";
 	public static final String FABRICANTE = "Fabricante";
-	public static final String ALUGUEL = "Aluguel";
+	public static final String ALUGUEL = "Aluguel do Carro: ";
 	
 }

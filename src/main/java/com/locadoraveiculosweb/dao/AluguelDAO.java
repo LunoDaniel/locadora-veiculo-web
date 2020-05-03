@@ -1,44 +1,23 @@
 package com.locadoraveiculosweb.dao;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
-
 import com.locadoraveiculosweb.modelo.Aluguel;
-import com.locadoraveiculosweb.service.NegocioException;
-import com.locadoraveiculosweb.util.jpa.Transactional;
 
-public class AluguelDAO implements Serializable{
+public class AluguelDAO extends BaseDAO<Aluguel> {
 	private static final long serialVersionUID = 1L;
-	
-	@Inject
-	EntityManager em;
-	
-	@Transactional
-	public void excluir(Aluguel aluguel) throws NegocioException {
-		aluguel = this.buscarPeloCodigo(aluguel.getCodigo());
-		try {
-			em.remove(aluguel);
-			em.flush();
-		} catch (PersistenceException e) {
-			throw new NegocioException(e.getMessage());
-		}
+
+	@Override
+	protected Class<Aluguel> getEntityClass() {
+		return Aluguel.class;
 	}
-	
-	public void salvar(Aluguel aluguel){
-		em.merge(aluguel);
+
+	@Override
+	protected String queryForAll() {
+		return "Aluguel.findAll";
 	}
-	
-	public Aluguel buscarPeloCodigo(Long codigo){
-		return em.find(Aluguel.class, codigo);
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Aluguel> buscarTodos(){
-		return em.createQuery("from Aluguel").getResultList();
+
+	@Override
+	protected String getCacheKey() {
+		return "aluguelCache";
 	}
 
 }

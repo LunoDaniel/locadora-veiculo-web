@@ -9,6 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.locadoraveiculosweb.dao.AcessorioDAO;
+import com.locadoraveiculosweb.exception.NegocioException;
 import com.locadoraveiculosweb.mappers.AcessorioMapper;
 import com.locadoraveiculosweb.modelo.Acessorio;
 import com.locadoraveiculosweb.modelo.dtos.AcessorioDto;

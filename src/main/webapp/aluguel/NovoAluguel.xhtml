@@ -6,10 +6,12 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:o="http://omnifaces.org/ui">
 
-    <ui:define name="titulo">Novo aluguel</ui:define>
+    <ui:define name="titulo" value="#{novoAluguelBean.getPageTitle('NOVO_ALUGUEL')}" />
     
     <ui:define name="corpo">
-    	<h1>Novo Aluguel</h1>
+    	<h1>
+    		<h:outputLabel value="#{novoAluguelBean.getPageTitle('NOVO_ALUGUEL')}" />
+    	</h1>
     	
     	<h:form id="frmCadastro">
     		<p:messages id="messages" autoUpdate="true" closable="true" />
@@ -19,37 +21,43 @@
 	    			<p:commandButton value="Salvar" id="botaoSalvar" action="#{novoAluguelBean.salvar}" update="frmCadastro"/>
 	    		</p:toolbarGroup>
 	    	</p:toolbar>
-	    	
-	    	<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
-	    			columnClasses="rotulo, campo">
-	    		<p:outputLabel value="Carro" for="carro"/>
-	    		<p:selectOneMenu id="carro" value="#{novoAluguelBean.aluguel.carro}">
-	    			<f:selectItem itemLabel="Selecione o carro" />
-	    			<f:selectItems value="#{novoAluguelBean.carros}" var="carro" 
-						itemLabel="#{carro.modelo.descricao}: #{carro.placa}" itemValue="#{carro}"/>
-	    		</p:selectOneMenu>
-	    		
-	    		<p:outputLabel value="Valor total" for="valorTotal"/>
-	    		<p:inputText id="valorTotal" size="20" maxlength="80" value="#{novoAluguelBean.aluguel.valorTotal}"/>
-	    	</p:panelGrid>
-	    	
-	    	<h:outputText value="Dados da apólice de seguro" style="font-size: 18px; display: block; margin-top: 20px"/>
-	    	
-	    	<p:panelGrid columns="2" id="painelApolice" style="width: 100%; margin-top: 20px"
-	    			columnClasses="rotulo, campo">
-		    	<p:outputLabel value="Proteção terceiro" for="protecaoTerceiro"/>
-    			<p:selectBooleanCheckbox id="protecaoTerceiro" value="#{novoAluguelBean.aluguel.apoliceSeguro.protecaoTerceiro}"/>
-    			
-    			<p:outputLabel value="Proteção causas naturais" for="protecaoCausasNaturais"/>
-    			<p:selectBooleanCheckbox id="protecaoCausasNaturais" value="#{novoAluguelBean.aluguel.apoliceSeguro.protecaoCausasNaturais}"/>
-    			
-    			<p:outputLabel value="Proteção roubo" for="protecaoRoubo"/>
-    			<p:selectBooleanCheckbox id="protecaoRoubo" value="#{novoAluguelBean.aluguel.apoliceSeguro.protecaoRoubo}"/>
-    			
-    			<p:outputLabel value="Valor da Franquia" for="valorFranquia"/>
-	    		<p:inputText id="valorFranquia" size="20" maxlength="20" value="#{novoAluguelBean.aluguel.apoliceSeguro.valorFranquia}"/>
-    		</p:panelGrid>
-		    		
+	    	<p:panel>
+		    	<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
+		    			columnClasses="rotulo, campo">
+		    		<p:outputLabel value="Carro" for="carro"/>
+		    		<p:selectOneMenu id="carro" value="#{novoAluguelBean.aluguel.carro}" required = "true" >
+		    			<f:selectItem itemLabel="Selecione o carro" />
+		    			<f:selectItems value="#{novoAluguelBean.carros}" var="carro" 
+							itemLabel="#{carro.modelo.descricao}: #{carro.placa}" itemValue="#{carro}"/>
+		    		</p:selectOneMenu>
+		    		     	
+					<p:outputLabel value="Número de Diárias" for="numeroDiarias"/>
+		    		<p:inputText id="numeroDiarias" size="20" maxlength="20"  required = "true" value="#{novoAluguelBean.aluguel.numeroDiarias}" >
+		    			<p:ajax event="change" update="valorTotal" process="@this"/>
+		    		</p:inputText>     	
+		    			
+		    		<p:outputLabel value="Valor Total" for="valorTotal"/>
+		    		<p:outputLabel id="valorTotal" size="20" maxlength="20" value="#{novoAluguelBean.aluguel.calculateValorTotal}" readonly="true"
+					     	decimalSeparator="," thousandSeparator="."  decimalPlaces="2" />
+		    	</p:panelGrid>
+		    	
+		    	<h:outputText value="Dados da apólice de seguro" style="font-size: 18px; display: block; margin-top: 20px"/>
+		    	
+		    	<p:panelGrid columns="2" id="painelApolice" style="width: 100%; margin-top: 20px"
+		    			columnClasses="rotulo, campo">
+			    	<p:outputLabel value="Proteção terceiro" for="protecaoTerceiro"/>
+	    			<p:selectBooleanCheckbox id="protecaoTerceiro" value="#{novoAluguelBean.aluguel.apoliceSeguro.protecaoTerceiro}"/>
+	    			
+	    			<p:outputLabel value="Proteção causas naturais" for="protecaoCausasNaturais"/>
+	    			<p:selectBooleanCheckbox id="protecaoCausasNaturais" value="#{novoAluguelBean.aluguel.apoliceSeguro.protecaoCausasNaturais}"/>
+	    			
+	    			<p:outputLabel value="Proteção roubo" for="protecaoRoubo"/>
+	    			<p:selectBooleanCheckbox id="protecaoRoubo" value="#{novoAluguelBean.aluguel.apoliceSeguro.protecaoRoubo}"/>
+	    			
+	    			<p:outputLabel value="Valor da Franquia" for="valorFranquia"/>
+		    		<p:inputText id="valorFranquia" size="20" maxlength="20" value="#{novoAluguelBean.aluguel.apoliceSeguro.valorFranquia}" required = "true" />
+	    		</p:panelGrid>
+		    </p:panel>
     	</h:form>
     </ui:define>
 </ui:composition>

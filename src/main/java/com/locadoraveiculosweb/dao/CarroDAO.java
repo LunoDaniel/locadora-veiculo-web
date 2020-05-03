@@ -24,6 +24,6 @@ public class CarroDAO extends BaseDAO<Carro> {
 
 	@Override
 	protected String getCacheKey() {
-		return "CarrosCache";
+		return "carrosCache";
 	}
 }

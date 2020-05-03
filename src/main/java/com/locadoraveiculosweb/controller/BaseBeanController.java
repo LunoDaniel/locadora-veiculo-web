@@ -1,5 +1,6 @@
 package com.locadoraveiculosweb.controller;
 
+import static com.locadoraveiculosweb.constants.LabelConstants.valueOf;
 import static com.locadoraveiculosweb.constants.MessageConstants.ViewMessages.getMsgFor;
 import static com.locadoraveiculosweb.constants.ServiceConstants.ERRO;
 import static com.locadoraveiculosweb.constants.ServiceConstants.EXCLUIR;
@@ -11,8 +12,7 @@ import static com.locadoraveiculosweb.util.jsf.FacesUtil.addSuccessMessage;
 import java.io.Serializable;
 import java.util.List;
 
-import com.locadoraveiculosweb.constants.LabelConstants;
-import com.locadoraveiculosweb.service.NegocioException;
+import com.locadoraveiculosweb.exception.NegocioException;
 import com.locadoraveiculosweb.service.Service;
 import com.locadoraveiculosweb.util.messages.MessageUtils;
 
@@ -21,7 +21,7 @@ public abstract class BaseBeanController<T> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	public String getPageTitle(String label) {
-		return LabelConstants.valueOf(label).getValue();
+		return valueOf(label).getValue();
 	}
 
 	public void salvar() throws NegocioException {
