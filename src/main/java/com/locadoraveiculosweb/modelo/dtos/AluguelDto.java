@@ -29,17 +29,18 @@ public class AluguelDto implements Serializable {
 	
 	private Integer numeroDiarias;
 	
-	private BigDecimal calculateValorTotal;
-	
-	public BigDecimal getCalculateValorTotal() {
+	public void calculateValorTotal() {
 		
 		carro = ofNullable(carro).orElse(new CarroDto());
 		valorTotal = ofNullable(valorTotal).orElse(ZERO);
 		numeroDiarias = ofNullable(numeroDiarias).orElse(0);
 		
 		BigDecimal partial = (ofNullable(carro.getValorDiaria()).orElse(ZERO).multiply(valueOf(numeroDiarias)));
-		calculateValorTotal = valorTotal.add(partial);
-		return calculateValorTotal;
+		valorTotal = valorTotal.add(partial);
+	}
+	
+	public BigDecimal getValorTota() {
+		return ofNullable(valorTotal).orElse(BigDecimal.valueOf(0.00));
 	}
 
 }

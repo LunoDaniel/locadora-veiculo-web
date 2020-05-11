@@ -4,7 +4,6 @@ public class ServiceConstants {
 
 	ServiceConstants() {}
 	
-	
 	public static final String SALVAR = "SALVAR";
 	public static final String EXCLUIR = "EXCLUIR";
 	public static final String SUCESSO = "SUCESSO";

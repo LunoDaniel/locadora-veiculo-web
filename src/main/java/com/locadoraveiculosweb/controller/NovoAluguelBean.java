@@ -1,10 +1,12 @@
 package com.locadoraveiculosweb.controller;
 
 import static com.locadoraveiculosweb.constants.ServiceConstants.ALUGUEL;
+import static org.apache.commons.lang3.ObjectUtils.isEmpty;
 
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -38,17 +40,26 @@ public class NovoAluguelBean extends BaseBeanController<AluguelDto> {
 	@Getter
 	@Setter
 	private List<CarroDto> carros;
-
+	
+	@Getter
+	@Setter
+	private CarroDto carro;
+	
+	@Getter
+	@Setter
+	private Integer numeroDiarias;
+	
 	@Override
 	@PostConstruct
 	public void initializer() {
 		clean();
-		this.carros = this.carroService.buscarTodos();
 	}
 
 	public void clean() {
 		aluguel = new AluguelDto();
-		this.aluguel.setApoliceSeguro(new ApoliceSeguroDto());
+		aluguel.setApoliceSeguro(new ApoliceSeguroDto());
+		carros = this.carroService.buscarTodos();
+		numeroDiarias = 0;
 	}
 
 	@Override
@@ -73,7 +84,24 @@ public class NovoAluguelBean extends BaseBeanController<AluguelDto> {
 
 	@Override
 	protected String getViewObjectPropertyMsg() {
-		return aluguel.getCarro().getChassi();
+		return aluguel.getCarro().getPlaca();
 	}
 
+	public void onCarroChange() {
+		aluguel.setCarro(carro);
+	}
+	
+	public void onNumeroDiariasChange() {
+		aluguel.setNumeroDiarias(numeroDiarias);
+		aluguel.calculateValorTotal();
+	}
+	
+	public String valorTotal() {
+		return isEmpty(aluguel.getValorTota()) ? "0,00" : aluguel.getValorTota().toString();
+	}
+	
+	public void limpaCarro(ActionEvent event) {
+		this.carro = null;
+	}
 }
+
