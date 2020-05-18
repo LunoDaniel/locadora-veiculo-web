@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @EqualsAndHashCode(callSuper=false)
 @DiscriminatorValue(value = "MOTORISTA")
-public class Motorista extends Pessoa {
+public class Motorista extends Usuario {
 	
 	private static final long serialVersionUID = 1L;
 	
