@@ -1,43 +1,49 @@
 package com.locadoraveiculosweb.controller;
 
+import static com.locadoraveiculosweb.constants.MessageConstants.BusinessMessages.USUARIO_SENHA_INVALIDOS;
+import static com.locadoraveiculosweb.constants.ServiceConstants.HOME_REDIRECT;
+import static com.locadoraveiculosweb.util.jsf.FacesUtil.addErrorMessage;
+import static org.apache.commons.lang3.ObjectUtils.isEmpty;
+
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+
+import com.locadoraveiculosweb.modelo.dtos.UsuarioDto;
+import com.locadoraveiculosweb.service.UsuarioService;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Named
-@SessionScoped
+@RequestScoped
 public class LoginBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Getter @Setter
-	String userName;
-	
-	@Getter @Setter
+	@Getter
+	@Setter
+	String username;
+
+	@Getter
+	@Setter
 	String password;
-	
+
+	@Inject
+	UsuarioService usuarioService;
+
 	public String login() {
-        FacesMessage message = null;
-         
-        if(userName != null && userName.equals("admin") && password != null && password.equals("admin")) {
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", userName);
-            
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            return "/Home?faces-redirect=true";
+   
+        UsuarioDto usuario = usuarioService.login(username, password); 
+        
+        if(!isEmpty(usuario)) {
+            return HOME_REDIRECT;
         } else {
-            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Loggin Error", "Usuário ou Senha invárlidos");
-            
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            addErrorMessage(USUARIO_SENHA_INVALIDOS.getDescription());
             return null;
         }
         
-    }   
+    }
 }
-
-

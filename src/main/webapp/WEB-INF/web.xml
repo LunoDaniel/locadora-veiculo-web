@@ -11,6 +11,12 @@
 	<welcome-file-list>
 		<welcome-file>Home.xhtml</welcome-file>
 	</welcome-file-list>
+	
+	<login-config>
+		<form-login-config>
+			<form-login-page>Login.xhtml</form-login-page>
+		</form-login-config>
+	</login-config>
 
 	<listener>
 		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>

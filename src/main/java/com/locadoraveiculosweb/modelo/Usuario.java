@@ -31,7 +31,7 @@ import lombok.Setter;
 		@NamedQuery(name = "Usuario.FindAll", query = "select u from Usuario u"),
 		@NamedQuery(name = "Usuario.FindOneByUsernameAndPass", query = "select u from Usuario u where u.cpf = :username and u.password = :password")
 })
-public abstract class Usuario extends BaseEntity {
+public class Usuario extends BaseEntity {
 	
 	private static final long serialVersionUID = 1L;
 

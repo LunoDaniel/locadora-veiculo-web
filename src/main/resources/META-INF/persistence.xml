@@ -13,7 +13,7 @@
 	 	<class>com.locadoraveiculosweb.modelo.Funcionario</class>
 	 	<class>com.locadoraveiculosweb.modelo.ModeloCarro</class>
 	 	<class>com.locadoraveiculosweb.modelo.Motorista</class>
-	 	<class>com.locadoraveiculosweb.modelo.Pessoa</class>
+	 	<class>com.locadoraveiculosweb.modelo.Usuario</class>
 		<properties>
 		
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> <!-- DB Driver -->

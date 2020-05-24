@@ -41,7 +41,9 @@ public class MessageConstants {
 		CHASSI_OBRIGATORIO("O Chassi é um campo Obrigatório!"),
 		MODELO_CARRO_OBRIGATORIO("O Modelo é um campo Obrigatório!"),
 		PLACA_OBRIGATORIO("A Placa é um campo Obrigatório!"),
-		COR_OBRIGATORIA("A Cor é um campo Obrigatório!");
+		COR_OBRIGATORIA("A Cor é um campo Obrigatório!"),
+		
+		USUARIO_SENHA_INVALIDOS("Usuário ou Senha inválidos");
 		
 		@Getter String description;
 		BusinessMessages(String description) {

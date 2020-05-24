@@ -15,4 +15,6 @@ public class ServiceConstants {
 	public static final String FABRICANTE = "Fabricante";
 	public static final String ALUGUEL = "Aluguel do Carro: ";
 	
+	public static final String HOME_REDIRECT = "/Home?faces-redirect=true";
+	
 }

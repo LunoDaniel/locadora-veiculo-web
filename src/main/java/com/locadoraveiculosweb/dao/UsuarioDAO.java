@@ -1,5 +1,7 @@
 package com.locadoraveiculosweb.dao;
 
+import javax.persistence.NoResultException;
+
 import com.locadoraveiculosweb.modelo.Usuario;
 
 public class UsuarioDAO extends BaseDAO<Usuario>{
@@ -22,10 +24,14 @@ public class UsuarioDAO extends BaseDAO<Usuario>{
 	}
 	
 	public Usuario findUsuarioByUsername(String username, String password) {
-		return getEm().createNamedQuery("Usuario.FindOneByUsernameAndPass", Usuario.class)
-				.setParameter("username", username)
-				.setParameter("password", password)
-				.getSingleResult();
+		try {
+			return getEm().createNamedQuery("Usuario.FindOneByUsernameAndPass", Usuario.class)
+					.setParameter("username", username)
+					.setParameter("password", password)
+					.getSingleResult();
+		} catch (NoResultException nre){
+			return null;
+		}
 	}
 
 }
