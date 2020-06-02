@@ -4,13 +4,17 @@ import static com.locadoraveiculosweb.constants.LabelConstants.valueOf;
 import static com.locadoraveiculosweb.constants.MessageConstants.ViewMessages.getMsgFor;
 import static com.locadoraveiculosweb.constants.ServiceConstants.ERRO;
 import static com.locadoraveiculosweb.constants.ServiceConstants.EXCLUIR;
+import static com.locadoraveiculosweb.constants.ServiceConstants.LOGIN_REDIRECT;
 import static com.locadoraveiculosweb.constants.ServiceConstants.SALVAR;
 import static com.locadoraveiculosweb.constants.ServiceConstants.SUCESSO;
+import static com.locadoraveiculosweb.util.SessionUtils.getSession;
 import static com.locadoraveiculosweb.util.jsf.FacesUtil.addErrorMessage;
 import static com.locadoraveiculosweb.util.jsf.FacesUtil.addSuccessMessage;
 
 import java.io.Serializable;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import com.locadoraveiculosweb.exception.NegocioException;
 import com.locadoraveiculosweb.service.Service;
@@ -57,6 +61,12 @@ public abstract class BaseBeanController<T> implements Serializable {
 	
 	private String getMessage(String msgFor, String typeOfMsg) throws NegocioException {
 		return MessageUtils.getMessage(getMsgFor(msgFor, typeOfMsg), getNameMessage(), getViewObjectPropertyMsg());
+	}
+	
+	public String logout() {
+		HttpSession session = getSession();
+		session.invalidate();
+		return LOGIN_REDIRECT;
 	}
 
 	public abstract void initializer();

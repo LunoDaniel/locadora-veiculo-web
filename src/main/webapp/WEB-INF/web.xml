@@ -15,6 +15,7 @@
 	<login-config>
 		<form-login-config>
 			<form-login-page>Login.xhtml</form-login-page>
+			<form-error-page>Error.xhtml</form-error-page>
 		</form-login-config>
 	</login-config>
 

@@ -2,12 +2,13 @@ package com.locadoraveiculosweb.controller;
 
 import static com.locadoraveiculosweb.constants.MessageConstants.BusinessMessages.USUARIO_SENHA_INVALIDOS;
 import static com.locadoraveiculosweb.constants.ServiceConstants.HOME_REDIRECT;
+import static com.locadoraveiculosweb.util.SessionUtils.putOnSession;
 import static com.locadoraveiculosweb.util.jsf.FacesUtil.addErrorMessage;
 import static org.apache.commons.lang3.ObjectUtils.isEmpty;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -18,7 +19,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Named
-@RequestScoped
+@SessionScoped
 public class LoginBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -39,6 +40,7 @@ public class LoginBean implements Serializable {
         UsuarioDto usuario = usuarioService.login(username, password); 
         
         if(!isEmpty(usuario)) {
+        	putOnSession(usuario.getCpf());
             return HOME_REDIRECT;
         } else {
             addErrorMessage(USUARIO_SENHA_INVALIDOS.getDescription());

@@ -10,7 +10,7 @@ import javax.crypto.SecretKey;
 
 public class PasswordUtils {
 	
-	static Cipher cipher;  
+	static Cipher cipher; 
 	
 	public PasswordUtils() {
 		try {
@@ -19,7 +19,6 @@ public class PasswordUtils {
 			e.printStackTrace();
 		}
 	}
-		
     
 	private static String encrypt(String plainText, SecretKey secretKey)
             throws Exception {
@@ -33,7 +32,7 @@ public class PasswordUtils {
 
     private static String decrypt(String encryptedText, SecretKey secretKey)
             throws Exception {
-        Base64.Decoder decoder = Base64.getDecoder();
+        Base64.Decoder decoder = Base64.getDecoder();     
         byte[] encryptedTextByte = decoder.decode(encryptedText);
         cipher.init(Cipher.DECRYPT_MODE, secretKey);
         byte[] decryptedByte = cipher.doFinal(encryptedTextByte);

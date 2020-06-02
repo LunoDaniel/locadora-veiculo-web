@@ -16,5 +16,6 @@ public class ServiceConstants {
 	public static final String ALUGUEL = "Aluguel do Carro: ";
 	
 	public static final String HOME_REDIRECT = "/Home?faces-redirect=true";
+	public static final String LOGIN_REDIRECT = "/Login?faces-redirect=true";
 	
 }
