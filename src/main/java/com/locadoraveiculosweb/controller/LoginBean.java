@@ -12,6 +12,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.locadoraveiculosweb.exception.SegurancaException;
 import com.locadoraveiculosweb.modelo.dtos.UsuarioDto;
 import com.locadoraveiculosweb.service.UsuarioService;
 
@@ -36,16 +37,24 @@ public class LoginBean implements Serializable {
 	UsuarioService usuarioService;
 
 	public String login() {
-   
-        UsuarioDto usuario = usuarioService.login(username, password); 
-        
-        if(!isEmpty(usuario)) {
-        	putOnSession(usuario.getCpf());
-            return HOME_REDIRECT;
-        } else {
-            addErrorMessage(USUARIO_SENHA_INVALIDOS.getDescription());
-            return null;
-        }
-        
-    }
+
+		UsuarioDto usuario;
+		try {
+			usuario = usuarioService.login(username, password);
+			return (!isEmpty(usuario)) ? loginSuccess(usuario): loginError();
+		} catch (SegurancaException e) {
+			return loginError();
+		}
+
+	}
+	
+	private String loginError() {
+		addErrorMessage(USUARIO_SENHA_INVALIDOS.getDescription());
+		return null;
+	}
+	
+	private String loginSuccess(UsuarioDto usuario) {
+		putOnSession(usuario.getCpf());
+		return HOME_REDIRECT;
+	}
 }

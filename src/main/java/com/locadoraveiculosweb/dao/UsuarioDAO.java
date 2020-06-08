@@ -23,11 +23,10 @@ public class UsuarioDAO extends BaseDAO<Usuario>{
 		return "usuarioCache";
 	}
 	
-	public Usuario findUsuarioByUsername(String username, String password) {
+	public Usuario findUsuarioByUsername(String email) {
 		try {
 			return getEm().createNamedQuery("Usuario.FindOneByUsernameAndPass", Usuario.class)
-					.setParameter("username", username)
-					.setParameter("password", password)
+					.setParameter("email", email)
 					.getSingleResult();
 		} catch (NoResultException nre){
 			return null;

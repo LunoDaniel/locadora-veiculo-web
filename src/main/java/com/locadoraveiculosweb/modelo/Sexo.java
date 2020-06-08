@@ -1,6 +1,17 @@
 package com.locadoraveiculosweb.modelo;
 
-public enum Sexo {
-	MASCULINO,
-	FMININO;
+import lombok.Getter;
+
+public enum Sexo {	
+	
+	MASCULINO("Masculino"),
+	FMININO("Feminino"),
+	NAO_INFORMAR("Não Informar");
+	
+	@Getter
+	String descricao;
+	
+	Sexo(String descricao) {
+		this.descricao = descricao;
+	}
 }

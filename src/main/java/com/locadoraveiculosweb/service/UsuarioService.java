@@ -1,22 +1,21 @@
 package com.locadoraveiculosweb.service;
 
 import static com.locadoraveiculosweb.util.LoginEventsBuilder.create;
-import static com.locadoraveiculosweb.util.PasswordUtils.getEncryptedPass;
 import static org.apache.commons.lang3.ObjectUtils.isEmpty;
-import static org.apache.commons.lang3.StringUtils.EMPTY;
-import static org.apache.commons.lang3.StringUtils.isBlank;
 
-import java.io.Serializable;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import com.locadoraveiculosweb.dao.LoginEventsDAO;
 import com.locadoraveiculosweb.dao.UsuarioDAO;
+import com.locadoraveiculosweb.exception.NegocioException;
+import com.locadoraveiculosweb.exception.SegurancaException;
 import com.locadoraveiculosweb.mappers.UsuarioMapper;
 import com.locadoraveiculosweb.modelo.Usuario;
 import com.locadoraveiculosweb.modelo.dtos.UsuarioDto;
 
-public class UsuarioService implements Serializable {
+public class UsuarioService extends SegurancaUsuarioService implements Service<UsuarioDto> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,24 +24,42 @@ public class UsuarioService implements Serializable {
 
 	@Inject
 	LoginEventsDAO loginEventsDao;
+	
 
 	@Inject
 	UsuarioMapper mapper;
 
-	public UsuarioDto login(String username, String password) {
+	public UsuarioDto login(String username, String password) throws SegurancaException {
 
-		Usuario usuario = usuarioDao.findUsuarioByUsername(username, getEncryptPass(password));
+		Usuario usuario = usuarioDao.findUsuarioByUsername(username);
+	
+		if(hasCredenciaisUsuario(usuario, password)) {
+			loginEventsDao.salvar(create(username, isEmpty(usuario)));
 
-		loginEventsDao.salvar(create(username, isEmpty(usuario)));
-
-		return mapper.toUsuarioDto(usuario);
-	}
-
-	private String getEncryptPass(String pass) {
-		if (isBlank(pass)) {
-			return EMPTY;
+			return mapper.toUsuarioDto(usuario);
 		}
-		return getEncryptedPass(pass);
+		
+		return null;
+	
 	}
 
+	@Override
+	public UsuarioDto salvar(UsuarioDto object) throws NegocioException {
+		return null;
+	}
+
+	@Override
+	public UsuarioDto buscarPeloCodigo(String id) {
+		return null;
+	}
+
+	@Override
+	public void excluir(UsuarioDto viewObject) throws NegocioException {
+		
+	}
+
+	@Override
+	public List<UsuarioDto> buscarTodos() {
+		return null;
+	}
 }

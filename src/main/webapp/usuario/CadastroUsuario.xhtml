@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Cadastro de Usuário</title>
+		<h:outputStylesheet library="css" name="sistema.css" />
+	</h:head>
+
+	<h:body>
+		<div id="login-dialog">
+			<h:form id="frmCadstroUsuario">
+
+				<p:messages id="messages" autoUpdate="true" />
+				<h1>Novo Usuário</h1>
+
+				<p:panelGrid columns="2" cellpadding="5" styleClass="grid-login">
+					<p:outputLabel for="nome" value="Nome" />
+					<p:inputText id="nome" value="#{cadastroUsuarioBean.usuario.nome}"
+						required="true" />
+						
+					<p:outputLabel for="cpf" value="CPF" />
+					<p:inputText id="cpf" value="#{cadastroUsuarioBean.usuario.cpf}"
+						required="true" />
+						
+					<p:outputLabel for="email" value="E-mail" />
+					<p: id="email" value="#{cadastroUsuarioBean.usuario.nome}"
+						required="true" />
+						
+					<p:outputLabel for="telefone" value="Celular:" />
+       				<p:inputMask id="telefone" value="#{cadastroUsuarioBean.usuario.telefone}" mask=" (99) 9999-9999"/>
+       				
+       				<p:outputLabel for="dataNascimento" value="Data de Nascimento: " />
+       				<p:datePicker id="dataNascimento" value="#{cadastroUsuarioBean.usuario.dataNascimento}" pattern="dd/MM/yyyy" showIcon="true" />
+       				
+
+					<p:outputLabel for="@next" value="Sexo: " />
+			        <p:selectOneMenu id="car"   value="#{cadastroUsuarioBean.usuario.sexo}">
+			            <f:selectItem itemLabel="Selecione o Sexo" itemValue="" />
+			            <f:selectItems value="#{cadastroUsuarioBean.sexos}" var="sexo" itemLabel="sexo.descricao" itemValue="sexo"/>
+			        </p:selectOneMenu>
+			        
+					<h:outputLabel for="senha1" value="Senha: *" />
+			        <p:password id="senha1" value="#{passwordView.password5}" match="pwd2" label="Senha 1" required="true" feedback="true" />
+			 
+			        <h:outputLabel for="senha2" value="Repita a Senha: *" />
+			        <p:password id="senha2" value="#{cadastroUsuarioBean.usuario.password}" label="Senha 2" required="true"  match="senha1"/>
+
+					<f:facet name="footer">
+						<p:commandButton value="Cadastrar" action="#{cadastroUsuarioBean.salvar}"
+							update="frmCadstroUsuario, messages" />
+						<p:button  value="Voltar ao Login" outcome="Login.xthml" style="padding-left: 95px;" />
+					</f:facet>
+
+				</p:panelGrid>
+			</h:form>
+		</div>
+	</h:body>
+
+</html>

@@ -22,7 +22,7 @@
 				<p:panelGrid columns="2" cellpadding="5" styleClass="grid-login">
 					<p:outputLabel for="nomeUsuario" value="Usuário:" />
 					<p:inputText id="nomeUsuario" value="#{loginBean.username}"
-						required="true" placeholder="Cpf" />
+						required="true" />
 
 					<p:outputLabel for="senha" value="Senha:" />
 					<p:password id="senha" value="#{loginBean.password}"
@@ -31,7 +31,7 @@
 					<f:facet name="footer">
 						<p:commandButton value="Entrar" action="#{loginBean.login}"
 							update="messages" />
-						<p:commandLink  value="Novo Cadastro" action="CadastroUsuario.xhtml" style="padding-left: 95px;" />
+						<p:commandLink  value="Novo Cadastro" action="/usuario/CadastroUsuario.xhtml" style="padding-left: 95px;" />
 					</f:facet>
 
 				</p:panelGrid>

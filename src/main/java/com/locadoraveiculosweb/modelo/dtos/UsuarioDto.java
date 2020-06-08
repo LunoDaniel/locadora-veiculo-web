@@ -4,11 +4,15 @@ import java.util.Date;
 
 import com.locadoraveiculosweb.modelo.Sexo;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UsuarioDto {
 	
 	Long codigo;
@@ -18,4 +22,10 @@ public class UsuarioDto {
 	Date dataNascimento;
 	
 	Sexo sexo;
+	
+	String nome;
+	
+	String email;
+	
+	String telefone;
 }
