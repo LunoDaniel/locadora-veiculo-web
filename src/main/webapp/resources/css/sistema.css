@@ -49,6 +49,13 @@ h1 > label {
 	margin: auto;
 	margin-top: 150px;
 }
+
+#cadastro-login-dialog {
+	width: 590px;
+	margin: auto;
+	margin-top: 150px;
+}
+
 .grid-login{
 	background-color: #f2f2f2;
 	border-radius: 8px;

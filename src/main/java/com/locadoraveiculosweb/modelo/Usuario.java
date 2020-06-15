@@ -1,5 +1,6 @@
 package com.locadoraveiculosweb.modelo;
 
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.DiscriminatorType.STRING;
 import static javax.persistence.InheritanceType.SINGLE_TABLE;
 
@@ -11,8 +12,10 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,8 +33,10 @@ import lombok.Setter;
 @Inheritance(strategy = SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_usuario", discriminatorType = STRING)
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "email", "cpf" }) })
-@NamedQueries(value = { @NamedQuery(name = "Usuario.FindAll", query = "select u from Usuario u"),
-		@NamedQuery(name = "Usuario.FindOneByUsernameAndPass", query = "select u from Usuario u where u.email = :email") })
+@NamedQueries(value = { 
+		@NamedQuery(name = "Usuario.FindAll", query = "select u from Usuario u"),
+		@NamedQuery(name = "Usuario.FindOneByUsernameAndPass", query = "select u from Usuario u where u.email = :email"),
+		@NamedQuery(name = "Usuario.FindOneByCPF", query = "select u from Usuario u where u.cpf = :cpf")})
 public class Usuario extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -60,5 +65,9 @@ public class Usuario extends BaseEntity {
 
 	@Enumerated(EnumType.STRING)
 	Sexo sexo;
+	
+	@OneToOne(cascade = ALL)
+	@JoinColumn(name = "codigo", referencedColumnName = "codigo")
+	private SegurancaUsuario seguranca;
 
 }

@@ -55,7 +55,7 @@ public abstract class BaseFilter implements Filter {
 	protected abstract boolean validateRequest(String request, HttpSession session);
 	
 	protected boolean cameFromLogin(String request) {
-		return request.indexOf("/Login.xhtml") >= 0 || request.indexOf("/CadastroUsuario.xhtml") >= 0;
+		return request.indexOf("/Login.xhtml") >= 0 || request.indexOf("/usuario/CadastroUsuario.xhtml") >= 0;
 	}
 	
 	protected boolean hasAUserInSession(HttpSession session) {
@@ -63,7 +63,7 @@ public abstract class BaseFilter implements Filter {
 	}
 	
 	protected boolean cameFromValidPage(String request) {
-		return request.indexOf("/public/") >= 0;
+		return request.indexOf("/public/") >= 0 || request.indexOf("/public/usuario/") >= 0;
 	}
 	
 	protected boolean isAValidResource(String request) {

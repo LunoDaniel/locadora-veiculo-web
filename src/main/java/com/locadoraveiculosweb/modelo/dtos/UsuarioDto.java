@@ -21,6 +21,8 @@ public class UsuarioDto {
 	
 	Date dataNascimento;
 	
+	String password;
+	
 	Sexo sexo;
 	
 	String nome;

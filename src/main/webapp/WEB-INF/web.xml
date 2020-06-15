@@ -18,6 +18,7 @@
 			<form-error-page>Error.xhtml</form-error-page>
 		</form-login-config>
 	</login-config>
+	
 
 	<listener>
 		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>

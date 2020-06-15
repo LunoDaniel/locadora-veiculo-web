@@ -13,13 +13,13 @@
 	</h:head>
 
 	<h:body>
-		<div id="login-dialog">
-			<h:form id="frmCadstroUsuario">
+		<div id="cadastro-login-dialog">
+			<h:form id="frmCadastroUsuario">
 
-				<p:messages id="messages" autoUpdate="true" />
+				<p:messages id="messages" autoUpdate="true" style="width: 400px;" />
 				<h1>Novo Usuário</h1>
 
-				<p:panelGrid columns="2" cellpadding="5" styleClass="grid-login">
+				<p:panelGrid columns="2" cellpadding="5" >
 					<p:outputLabel for="nome" value="Nome" />
 					<p:inputText id="nome" value="#{cadastroUsuarioBean.usuario.nome}"
 						required="true" />
@@ -29,32 +29,34 @@
 						required="true" />
 						
 					<p:outputLabel for="email" value="E-mail" />
-					<p: id="email" value="#{cadastroUsuarioBean.usuario.nome}"
-						required="true" />
+					<p:inputText id="email" value="#{cadastroUsuarioBean.usuario.email}"
+						required="true"  />
 						
 					<p:outputLabel for="telefone" value="Celular:" />
        				<p:inputMask id="telefone" value="#{cadastroUsuarioBean.usuario.telefone}" mask=" (99) 9999-9999"/>
        				
        				<p:outputLabel for="dataNascimento" value="Data de Nascimento: " />
-       				<p:datePicker id="dataNascimento" value="#{cadastroUsuarioBean.usuario.dataNascimento}" pattern="dd/MM/yyyy" showIcon="true" />
+       				<p:datePicker id="dataNascimento" value="#{cadastroUsuarioBean.usuario.dataNascimento}" pattern="dd/MM/yyyy" showIcon="true" yearNavigator="true" yearRange="1920:2050"/>
        				
 
 					<p:outputLabel for="@next" value="Sexo: " />
-			        <p:selectOneMenu id="car"   value="#{cadastroUsuarioBean.usuario.sexo}">
-			            <f:selectItem itemLabel="Selecione o Sexo" itemValue="" />
-			            <f:selectItems value="#{cadastroUsuarioBean.sexos}" var="sexo" itemLabel="sexo.descricao" itemValue="sexo"/>
+			        <p:selectOneMenu id="sexo"   value="#{cadastroUsuarioBean.usuario.sexo}">
+			            <f:selectItem itemLabel="Selecione o Sexo" />
+			            <f:selectItems value="#{cadastroUsuarioBean.sexos}" var="sexo" itemLabel="#{sexo.descricao}" itemValue="#{sexo}"/>
 			        </p:selectOneMenu>
 			        
-					<h:outputLabel for="senha1" value="Senha: *" />
-			        <p:password id="senha1" value="#{passwordView.password5}" match="pwd2" label="Senha 1" required="true" feedback="true" />
+					<h:outputLabel for="senha" value="Senha: *" />
+			        <p:password id="senha" value="#{cadastroUsuarioBean.usuario.password}" label="Senha" required="true" feedback="true" match="repetir_senha" />
 			 
-			        <h:outputLabel for="senha2" value="Repita a Senha: *" />
-			        <p:password id="senha2" value="#{cadastroUsuarioBean.usuario.password}" label="Senha 2" required="true"  match="senha1"/>
+			        <h:outputLabel for="repetir_senha" value="Repita a Senha: *" />
+			        <p:password id="repetir_senha" value="#{cadastroUsuarioBean.usuario.password}" label="Confirmar Senha" required="true" 
+			        	validatorMessage="A senha não é valida. Tente uma senha mais forte para sua segurança."/>
 
 					<f:facet name="footer">
-						<p:commandButton value="Cadastrar" action="#{cadastroUsuarioBean.salvar}"
-							update="frmCadstroUsuario, messages" />
-						<p:button  value="Voltar ao Login" outcome="Login.xthml" style="padding-left: 95px;" />
+						<p:commandButton value="Cadastrar" action="#{cadastroUsuarioBean.salvar()}" update="frmCadastroUsuario, messages" />
+						<p:outputPanel style="float: right">
+							<p:link value="Voltar ao Login" outcome="/Login"/>
+						</p:outputPanel>
 					</f:facet>
 
 				</p:panelGrid>

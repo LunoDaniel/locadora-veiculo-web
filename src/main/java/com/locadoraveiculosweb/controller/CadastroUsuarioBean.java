@@ -5,6 +5,7 @@ import static java.util.Arrays.asList;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -34,7 +35,9 @@ public class CadastroUsuarioBean extends BaseBeanController<UsuarioDto> {
 	UsuarioDto usuario;
 
 	@Override
+	@PostConstruct
 	public void initializer() {
+		clean();
 		sexos = asList(Sexo.values());
 	}
 

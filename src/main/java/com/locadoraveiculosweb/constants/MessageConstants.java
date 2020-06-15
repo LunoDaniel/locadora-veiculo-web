@@ -43,7 +43,8 @@ public class MessageConstants {
 		PLACA_OBRIGATORIO("A Placa é um campo Obrigatório!"),
 		COR_OBRIGATORIA("A Cor é um campo Obrigatório!"),
 		
-		USUARIO_SENHA_INVALIDOS("Usuário ou Senha inválidos");
+		USUARIO_SENHA_INVALIDOS("Usuário ou Senha inválidos"),
+		USUARIO_EXISTENTE("Usuário já existe.");
 		
 		@Getter String description;
 		BusinessMessages(String description) {

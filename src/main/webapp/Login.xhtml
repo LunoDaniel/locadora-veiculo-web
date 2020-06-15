@@ -17,9 +17,13 @@
 			<h:form>
 
 				<p:messages id="messages" />
-				<h1>Login</h1>
+				
+				
 
 				<p:panelGrid columns="2" cellpadding="5" styleClass="grid-login">
+				<f:facet name="header">
+					<h1>Login</h1>
+				</f:facet>
 					<p:outputLabel for="nomeUsuario" value="Usuário:" />
 					<p:inputText id="nomeUsuario" value="#{loginBean.username}"
 						required="true" />
@@ -31,7 +35,9 @@
 					<f:facet name="footer">
 						<p:commandButton value="Entrar" action="#{loginBean.login}"
 							update="messages" />
-						<p:commandLink  value="Novo Cadastro" action="/usuario/CadastroUsuario.xhtml" style="padding-left: 95px;" />
+						<p:outputPanel style="float: right; vertical-align: middle;">
+							<p:link  value="Novo Cadastro" outcome="/usuario/CadastroUsuario" />
+						</p:outputPanel>
 					</f:facet>
 
 				</p:panelGrid>

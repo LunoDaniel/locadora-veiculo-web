@@ -32,5 +32,15 @@ public class UsuarioDAO extends BaseDAO<Usuario>{
 			return null;
 		}
 	}
+	
+	public Usuario findUsuarioByCpf(String cpf) {
+		try {
+			return getEm().createNamedQuery("Usuario.FindOneByCPF", Usuario.class)
+					.setParameter("cpf", cpf)
+					.getSingleResult();
+		} catch (NoResultException nre){
+			return null;
+		}
+	}
 
 }

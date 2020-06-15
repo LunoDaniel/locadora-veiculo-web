@@ -2,7 +2,6 @@ package com.locadoraveiculosweb.modelo;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -32,7 +31,7 @@ public class SegurancaUsuario extends BaseEntity {
 	@Getter @Setter
 	Byte[] privateKeyUsuario;
 	
-	@OneToOne
-	@JoinColumn(name = "codigo_usuario")
+	@Getter @Setter
+	@OneToOne(mappedBy = "seguranca")
 	Usuario usuario;
 }

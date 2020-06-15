@@ -11,8 +11,8 @@ import lombok.Setter;
 @Setter
 public class MotoristaDto extends UsuarioDto {
 
-	MotoristaDto(Long codigo, String cpf, Date dataNascimento, Sexo sexo, String nome, String email, String telefone) {
-		super(codigo, cpf, dataNascimento, sexo, nome, email, telefone);
+	MotoristaDto(Long codigo, String cpf, Date dataNascimento, String password, Sexo sexo, String nome, String email, String telefone) {
+		super(codigo, cpf, dataNascimento, password, sexo, nome, email, telefone);
 	}
 	
 	String cnh;

@@ -11,8 +11,8 @@ import lombok.Setter;
 @Setter
 public class FuncionarioDto extends UsuarioDto {
 
-	FuncionarioDto(Long codigo, String cpf, Date dataNascimento, Sexo sexo, String nome, String email, String telefone) {
-		super(codigo, cpf, dataNascimento, sexo, nome, email, telefone);
+	FuncionarioDto(Long codigo, String cpf, Date dataNascimento, String password, Sexo sexo, String nome, String email, String telefone) {
+		super(codigo, cpf, dataNascimento, password,  sexo, nome, email, telefone);
 	}
 	
 	String matricula;

@@ -15,6 +15,7 @@
 	 	<class>com.locadoraveiculosweb.modelo.Motorista</class>
 	 	<class>com.locadoraveiculosweb.modelo.Usuario</class>
 	 	<class>com.locadoraveiculosweb.modelo.LoginEvents</class>
+	 	<class>com.locadoraveiculosweb.modelo.SegurancaUsuario</class>
 		<properties>
 		
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> <!-- DB Driver -->
