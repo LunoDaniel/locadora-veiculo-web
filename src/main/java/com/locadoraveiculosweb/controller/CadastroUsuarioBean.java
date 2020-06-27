@@ -1,6 +1,7 @@
 package com.locadoraveiculosweb.controller;
 
 import static com.locadoraveiculosweb.constants.ServiceConstants.USUARIO;
+import static com.locadoraveiculosweb.util.SessionUtils.hasUser;
 import static java.util.Arrays.asList;
 
 import java.util.List;
@@ -12,6 +13,8 @@ import javax.inject.Named;
 import org.omnifaces.cdi.ViewScoped;
 
 import com.locadoraveiculosweb.modelo.Sexo;
+import com.locadoraveiculosweb.modelo.dtos.FuncionarioDto;
+import com.locadoraveiculosweb.modelo.dtos.MotoristaDto;
 import com.locadoraveiculosweb.modelo.dtos.UsuarioDto;
 import com.locadoraveiculosweb.service.Service;
 import com.locadoraveiculosweb.service.UsuarioService;
@@ -43,7 +46,11 @@ public class CadastroUsuarioBean extends BaseBeanController<UsuarioDto> {
 
 	@Override
 	protected void clean() {
-		usuario = new UsuarioDto();
+		
+		if(hasUser()) {
+			usuario = new FuncionarioDto();
+		}
+		usuario = new MotoristaDto();
 	}
 
 	@Override

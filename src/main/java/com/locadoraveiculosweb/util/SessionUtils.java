@@ -1,5 +1,7 @@
 package com.locadoraveiculosweb.util;
 
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -33,5 +35,9 @@ public class SessionUtils {
 	public static void putOnSession(String username) {
 		HttpSession session = getSession();
 		session.setAttribute("username", username);
+	}
+	
+	public static boolean hasUser() {
+		return (isNotBlank(getUserId()));
 	}
 }

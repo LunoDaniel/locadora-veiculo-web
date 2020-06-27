@@ -3,8 +3,8 @@ package com.locadoraveiculosweb.service;
 import static com.locadoraveiculosweb.constants.MessageConstants.BusinessMessages.USUARIO_EXISTENTE;
 import static com.locadoraveiculosweb.modelo.LoginStatusEnum.LOGIN_ERRO;
 import static com.locadoraveiculosweb.modelo.LoginStatusEnum.LOGIN_SUCESSO;
-import static com.locadoraveiculosweb.modelo.LoginStatusEnum.NOVO_LOGIN_ERRO;
-import static com.locadoraveiculosweb.modelo.LoginStatusEnum.NOVO_LOGIN_SUCESSO;
+import static com.locadoraveiculosweb.modelo.LoginStatusEnum.NOVO_USUARIO_ERRO;
+import static com.locadoraveiculosweb.modelo.LoginStatusEnum.NOVO_USUARIO_SUCESSO;
 import static com.locadoraveiculosweb.util.LoginEventsBuilder.create;
 import static org.apache.commons.lang3.ObjectUtils.isEmpty;
 
@@ -15,9 +15,9 @@ import javax.inject.Inject;
 import com.locadoraveiculosweb.dao.LoginEventsDAO;
 import com.locadoraveiculosweb.exception.NegocioException;
 import com.locadoraveiculosweb.exception.SegurancaException;
-import com.locadoraveiculosweb.mappers.UsuarioMapper;
 import com.locadoraveiculosweb.modelo.Usuario;
 import com.locadoraveiculosweb.modelo.dtos.UsuarioDto;
+import com.locadoraveiculosweb.service.factories.UsuarioFactory;
 import com.locadoraveiculosweb.util.jpa.Transactional;
 
 public class UsuarioService extends SegurancaUsuarioService implements Service<UsuarioDto> {
@@ -26,9 +26,9 @@ public class UsuarioService extends SegurancaUsuarioService implements Service<U
 
 	@Inject
 	LoginEventsDAO loginEventsDao;
-
+	
 	@Inject
-	UsuarioMapper mapper;
+	UsuarioFactory factory;
 
 	public UsuarioDto login(String username, String password) throws SegurancaException {
 
@@ -37,7 +37,7 @@ public class UsuarioService extends SegurancaUsuarioService implements Service<U
 		if (hasCredenciaisUsuario(usuario, password)) {
 			loginEventsDao.salvar(create(username, LOGIN_SUCESSO));
 
-			return mapper.toUsuarioDto(usuario);
+			return factory.getMapper().toUsuarioDto(usuario);
 		}
 
 		loginEventsDao.salvar(create(username, LOGIN_ERRO));
@@ -53,17 +53,16 @@ public class UsuarioService extends SegurancaUsuarioService implements Service<U
 		Usuario usuario = usuarioDao.findUsuarioByCpf(dto.getCpf());
 		try {
 			
-			if(isEmpty(usuario)) {				
-				usuario = salvarUsuario(mapper.toUsuario(dto));
-				loginEventsDao.salvar(create(usuario.getEmail(), NOVO_LOGIN_SUCESSO));
-				return mapper.toUsuarioDto(usuario);
+			if(isEmpty(usuario)) {
+				usuario = salvarUsuario(factory.get(dto));
+				loginEventsDao.salvar(create(usuario.getEmail(), NOVO_USUARIO_SUCESSO));
+				return factory.getMapper().toUsuarioDto(usuario);
 			} else {				
-				loginEventsDao.salvar(create(dto.getEmail(), NOVO_LOGIN_ERRO));
-			}
-			
-			throw new NegocioException(USUARIO_EXISTENTE.getDescription());
+				loginEventsDao.salvar(create(dto.getEmail(), NOVO_USUARIO_ERRO));
+				throw new NegocioException(USUARIO_EXISTENTE.getDescription());
+			}			
 		} catch (Exception e) {
-			loginEventsDao.salvar(create(dto.getEmail(), NOVO_LOGIN_ERRO));
+			loginEventsDao.salvar(create(dto.getEmail(), NOVO_USUARIO_ERRO));
 			throw new NegocioException("Erro ao salvar o usuário");
 		}
 	}

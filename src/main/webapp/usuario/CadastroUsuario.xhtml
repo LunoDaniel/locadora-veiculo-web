@@ -27,7 +27,7 @@
 					<p:outputLabel for="cpf" value="CPF" />
 					<p:inputText id="cpf" value="#{cadastroUsuarioBean.usuario.cpf}"
 						required="true" />
-						
+									
 					<p:outputLabel for="email" value="E-mail" />
 					<p:inputText id="email" value="#{cadastroUsuarioBean.usuario.email}"
 						required="true"  />
@@ -45,13 +45,18 @@
 			            <f:selectItems value="#{cadastroUsuarioBean.sexos}" var="sexo" itemLabel="#{sexo.descricao}" itemValue="#{sexo}"/>
 			        </p:selectOneMenu>
 			        
+			        <p:outputLabel for="cnh" value="CNH" rendered="#{!SessionUtils.hasUser()}" />
+					<p:inputText id="cnh" value="#{cadastroUsuarioBean.usuario.cnh}"  rendered="#{!SessionUtils.hasUser()}" 
+						required="true" />
+			        
 					<h:outputLabel for="senha" value="Senha: *" />
 			        <p:password id="senha" value="#{cadastroUsuarioBean.usuario.password}" label="Senha" required="true" feedback="true" match="repetir_senha" />
 			 
 			        <h:outputLabel for="repetir_senha" value="Repita a Senha: *" />
 			        <p:password id="repetir_senha" value="#{cadastroUsuarioBean.usuario.password}" label="Confirmar Senha" required="true" 
 			        	validatorMessage="A senha não é valida. Tente uma senha mais forte para sua segurança."/>
-
+			       
+			      
 					<f:facet name="footer">
 						<p:commandButton value="Cadastrar" action="#{cadastroUsuarioBean.salvar()}" update="frmCadastroUsuario, messages" />
 						<p:outputPanel style="float: right">

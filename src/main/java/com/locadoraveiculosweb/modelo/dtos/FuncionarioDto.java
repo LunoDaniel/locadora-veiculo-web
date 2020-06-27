@@ -5,10 +5,12 @@ import java.util.Date;
 import com.locadoraveiculosweb.modelo.Sexo;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class FuncionarioDto extends UsuarioDto {
 
 	FuncionarioDto(Long codigo, String cpf, Date dataNascimento, String password, Sexo sexo, String nome, String email, String telefone) {
