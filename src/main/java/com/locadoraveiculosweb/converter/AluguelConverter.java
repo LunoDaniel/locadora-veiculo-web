@@ -14,7 +14,7 @@ import lombok.Getter;
 @Getter
 @FacesConverter(forClass = AluguelDto.class)
 public class AluguelConverter extends BeanConverter<AluguelDto> {
-	
+
 	@Inject
 	private AluguelService service;
 
