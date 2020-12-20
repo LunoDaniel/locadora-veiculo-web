@@ -1,5 +1,8 @@
 package com.locadoraveiculosweb.dao;
 
+import java.util.Date;
+import java.util.List;
+
 import com.locadoraveiculosweb.modelo.Aluguel;
 
 public class AluguelDAO extends BaseDAO<Aluguel> {
@@ -19,5 +22,14 @@ public class AluguelDAO extends BaseDAO<Aluguel> {
 	protected String getCacheKey() {
 		return "aluguelCache";
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<Aluguel> buscarAlugueisDesde(Date data) {
+		return getEm().createQuery("Select a.* From Aluguel a Where a.dataCriacao between :data and now()")
+				.setParameter("data", data)
+				.getResultList();
+	}
+	
+	
 
 }

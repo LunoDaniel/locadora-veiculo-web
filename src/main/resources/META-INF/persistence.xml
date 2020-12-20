@@ -19,9 +19,9 @@
 		<properties>
 		
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> <!-- DB Driver -->
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/locadora" /> <!-- BD Mane -->
-            <property name="javax.persistence.jdbc.user" value="postgres" /> <!-- DB User -->
-            <property name="javax.persistence.jdbc.password" value="admin" /> <!-- DB Password -->
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://{db.url}/${db.name}" /> <!-- BD Mane -->
+            <property name="javax.persistence.jdbc.user" value="${db.password}" /> <!-- DB User -->
+            <property name="javax.persistence.jdbc.password" value="${db.user}" /> <!-- DB Password -->
 
 			<property name="hibernate.default_schema" value="public"/>
 	    	<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect"/> <!-- DB Dialect -->
