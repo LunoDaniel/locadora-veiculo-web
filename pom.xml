@@ -23,32 +23,28 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<db.user>admin</db.user>
-				<db.password>1234</db.password>
+				<db.user>postgres</db.user>
+				<db.password>admin</db.password>
 				<db.url>localhost</db.url>
 				<db.name>locadora</db.name>
-			</properties>
-		</profile>
-		<profile>
-			<id>prd</id>
-			<properties>
-				<db.user>akfsuubgaucnnh</db.user>
-				<db.password>2928bee7b4382ed7693097cd198b235324989fe501353f234704f9cf02e7b339</db.password>
-				<db.url>ec2-52-71-153-228.compute-1.amazonaws.com</db.url>
-				<db.name>djj14gr8f21mv</db.name>
 			</properties>
 		</profile>
 	</profiles>
 
 	<build>
 		<finalName>locadora-veiculo-web</finalName>
-		 <resources>
-            <resource>
-                <directory>${basedir}/src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
+		<resources>
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
+			<plugin>
+				<groupId>com.heroku.sdk</groupId>
+				<artifactId>heroku-maven-plugin</artifactId>
+				<version>3.0.3</version>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
